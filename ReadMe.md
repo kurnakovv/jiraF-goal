@@ -1,5 +1,5 @@
 <div align="center">
- <img src="docs/img/jiraf-icon.png" weight="100px" height="200px" />
+ <img src="docs/img/jiraF-icon.png" weight="100px" height="200px" />
  <h2>jiraF</h2>
 
 [![](https://tokei.rs/b1/github/KurnakovMaksim/jiraF)](https://github.com/KurnakovMaksim/jiraF)
