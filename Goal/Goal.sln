@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DCEFBE83-0B8A-4E59-987D-21762B39960A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.API", "src\jiraF.Goal.API\jiraF.Goal.API.csproj", "{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.EndToEndTests", "src\jiraF.Goal.EndToEndTests\jiraF.Goal.EndToEndTests.csproj", "{58B35846-2F46-42EC-A4BF-4FF7D8C99501}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.UnitTests", "src\jiraF.Goal.UnitTests\jiraF.Goal.UnitTests.csproj", "{3EA18727-F5C0-4485-B27C-CD19B6D556B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B35846-2F46-42EC-A4BF-4FF7D8C99501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B35846-2F46-42EC-A4BF-4FF7D8C99501}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B35846-2F46-42EC-A4BF-4FF7D8C99501}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B35846-2F46-42EC-A4BF-4FF7D8C99501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EA18727-F5C0-4485-B27C-CD19B6D556B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA18727-F5C0-4485-B27C-CD19B6D556B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EA18727-F5C0-4485-B27C-CD19B6D556B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA18727-F5C0-4485-B27C-CD19B6D556B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED74C933-6EA9-4FF6-AF8A-AC7B27855AEA} = {DCEFBE83-0B8A-4E59-987D-21762B39960A}
+		{58B35846-2F46-42EC-A4BF-4FF7D8C99501} = {DCEFBE83-0B8A-4E59-987D-21762B39960A}
+		{3EA18727-F5C0-4485-B27C-CD19B6D556B1} = {DCEFBE83-0B8A-4E59-987D-21762B39960A}
+	EndGlobalSection
+EndGlobal
