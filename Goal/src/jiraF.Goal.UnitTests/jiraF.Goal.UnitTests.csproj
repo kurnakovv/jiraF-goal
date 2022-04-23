@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\jiraF.Goal.API\jiraF.Goal.API.csproj" />
+  </ItemGroup>
+
 </Project>
