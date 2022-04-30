@@ -9,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
+#if DEBUG
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+#else
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+#endif
 });
 
 builder.Services.AddControllers();
