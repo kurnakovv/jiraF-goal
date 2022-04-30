@@ -14,7 +14,7 @@
 
 | Mircroservice 	    | Build/Test |  SonarCloud |
 |------------------ | -------------------------------------- | ---------------------------- |
-| jiraF.Goal  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) |
+| jiraF.Goal  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=coverage)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) |
  
 
 # Reason
