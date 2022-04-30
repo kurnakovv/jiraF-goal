@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goal", "Goal", "{AF2EA258-78D7-434C-9BEB-F31305941E89}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.API", "Goal\src\jiraf.Goal.API\jiraF.Goal.API.csproj", "{7CE48628-AAC2-479E-8853-94C342AF5571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.EndToEndTests", "Goal\src\jiraf.Goal.EndToEndTests\jiraF.Goal.EndToEndTests.csproj", "{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.UnitTests", "Goal\src\jiraf.Goal.UnitTests\jiraF.Goal.UnitTests.csproj", "{227807DE-EA5E-4EF6-8393-3A9C7E87729D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CE48628-AAC2-479E-8853-94C342AF5571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CE48628-AAC2-479E-8853-94C342AF5571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CE48628-AAC2-479E-8853-94C342AF5571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CE48628-AAC2-479E-8853-94C342AF5571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{227807DE-EA5E-4EF6-8393-3A9C7E87729D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{227807DE-EA5E-4EF6-8393-3A9C7E87729D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{227807DE-EA5E-4EF6-8393-3A9C7E87729D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{227807DE-EA5E-4EF6-8393-3A9C7E87729D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257} = {AF2EA258-78D7-434C-9BEB-F31305941E89}
+		{7CE48628-AAC2-479E-8853-94C342AF5571} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
+		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
+		{227807DE-EA5E-4EF6-8393-3A9C7E87729D} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
+	EndGlobalSection
+EndGlobal
