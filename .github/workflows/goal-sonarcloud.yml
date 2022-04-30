@@ -55,7 +55,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          dotnet tool install --global dotnet-coverage --tool-path .\.sonar\scanner
+          dotnet tool install --global dotnet-coverage
+
+          [jdk setup]
+
           dotnet sonarscanner begin/k:"KurnakovMaksim_jiraF"
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
