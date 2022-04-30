@@ -12,9 +12,10 @@
 
 # Pipeline
 
-| Mircroservice 	    | Build/Test |
-|------------------ | -------------------------------------- |
-| jiraF.Goal  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) |
+| Mircroservice 	    | Build/Test |  SonarCloud |
+|------------------ | -------------------------------------- | ---------------------------- |
+| jiraF.Goal  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) |
+ 
 
 # Reason
 <code><a href="#ArchitectureForContainerizedDotNetApplications" ><img src="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/media/cover-large.png" title=".NET Microservices: Architecture for Containerized .NET Applications" width="150" /></a></code><br>
