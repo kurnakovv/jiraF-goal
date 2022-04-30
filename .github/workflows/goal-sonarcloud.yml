@@ -56,12 +56,7 @@ jobs:
         shell: powershell
         run: |
           dotnet tool install --global dotnet-coverage
-
-          [jdk setup]
-
-          dotnet sonarscanner begin/k:"KurnakovMaksim_jiraF"
-            /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-          dotnet build --no-incremental
-          dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
-          dotnet sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet build Goal
+          dotnet-coverage collect 'dotnet test' Goal -f xml -o 'coverage.xml'
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
