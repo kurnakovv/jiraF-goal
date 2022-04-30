@@ -1,4 +1,4 @@
-name: Build/Test
+name: Goal microservice Build/Test
 
 on:
   push:
@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Goal
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Goal --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test Goal --no-build --verbosity normal
