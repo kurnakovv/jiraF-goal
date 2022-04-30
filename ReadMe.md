@@ -10,6 +10,12 @@
 # Description
 <b>jiraF</b> - is a task manager e-commerce application based on microservices approach
 
+# Pipeline
+
+| Mircroservice 	    | Build/Test |
+|------------------ | -------------------------------------- |
+| jiraF.Goal  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) |
+
 # Reason
 <code><a href="#ArchitectureForContainerizedDotNetApplications" ><img src="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/media/cover-large.png" title=".NET Microservices: Architecture for Containerized .NET Applications" width="150" /></a></code><br>
 I have been reading this book, and I want to try microservice approach in practice
