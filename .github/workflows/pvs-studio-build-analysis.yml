@@ -19,12 +19,14 @@ jobs:
           sudo apt install pvs-studio
           pvs-studio-analyzer credentials ${{ secrets.PVS_STUDIO_CREDENTIALS }}
           echo "" > CMakeLists.txt
+          cat compile_commands.json
       - name: Build
         run: |
           cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=On -B build .
           cmake --build build -j
       - name: Analyze
         run: |
+          ls
           ls build
           pvs-studio-analyzer analyze -f build/compile_commands.json -j
       - name: Convert report
