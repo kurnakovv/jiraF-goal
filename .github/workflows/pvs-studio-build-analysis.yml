@@ -25,7 +25,10 @@ jobs:
           cmake --build build -j
       - name: Analyze
         run: |
-          pvs-studio-analyzer trace -- make
+          pvs-studio-analyzer analyze -l /path/to/PVS-Studio.lic \ 
+                                      -o /path/to/PVS-Studio.log \ 
+                                      -e /path/to/exclude-path \ 
+                                      -j<N>
       - name: Convert report
         run: |
           plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
