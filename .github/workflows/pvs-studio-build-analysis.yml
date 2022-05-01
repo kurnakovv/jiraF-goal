@@ -28,7 +28,7 @@ jobs:
         run: |
           ls
           ls build
-          pvs-studio-analyzer analyze -f build/compile_commands.json -j
+          pvs-studio-analyzer analyze -f compile_commands.json -j
       - name: Convert report
         run: |
           plog-converter -t sarif -o pvs-report.sarif PVS-Studio.log
