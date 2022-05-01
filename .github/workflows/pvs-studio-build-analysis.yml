@@ -25,6 +25,7 @@ jobs:
           cmake --build build -j
       - name: Analyze
         run: |
+          ls build
           pvs-studio-analyzer analyze -f build/compile_commands.json -j
       - name: Convert report
         run: |
