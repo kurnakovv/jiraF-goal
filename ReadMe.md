@@ -2,7 +2,8 @@
  <img src="docs/img/jiraF-icon.png" weight="100px" height="200px" />
  <h2>jiraF</h2>
 
-[![](https://tokei.rs/b1/github/KurnakovMaksim/jiraF)](https://github.com/KurnakovMaksim/jiraF)
+![Visitors](http://estruyf-github.azurewebsites.net/api/VisitorHit?user=KurnakovMaksim&repo=jiraF&countColor=%237B1E7A&style=flat)
+ [![](https://tokei.rs/b1/github/KurnakovMaksim/jiraF)](https://github.com/KurnakovMaksim/jiraF)
 [![Help Wanted](https://img.shields.io/github/issues/KurnakovMaksim/jiraF/help%20wanted?color=green)](https://github.com/KurnakovMaksim/jiraF/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 
 </div>
