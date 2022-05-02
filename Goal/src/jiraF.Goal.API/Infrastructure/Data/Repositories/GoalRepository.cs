@@ -45,11 +45,7 @@ public class GoalRepository : IGoalRepository
 
     public async Task AddAsync(GoalModel goal)
     {
-        Guid labelId = await _dbContext.Labels
-            .Where(x => x.Title == goal.Title.Value)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
-
+        Guid labelId = await GetLabelIdByTitle(goal.Label.Title.Value);
         _dbContext.Goals.Add(new GoalEntity
         {
             Title = goal.Title.Value,
@@ -64,11 +60,7 @@ public class GoalRepository : IGoalRepository
 
     public async Task UpdateAsync(Guid id, GoalModel goal)
     {
-        Guid labelId = await _dbContext.Labels
-            .Where(x => x.Title == goal.Title.Value)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
-
+        Guid labelId = await GetLabelIdByTitle(goal.Label.Title.Value);
         _dbContext.Goals.Update(new GoalEntity 
         { 
             Title = goal.Title.Value, 
@@ -88,5 +80,14 @@ public class GoalRepository : IGoalRepository
         GoalEntity entity = await _dbContext.Goals.FirstOrDefaultAsync(x => x.Id == id);
         _dbContext.Goals.Remove(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+
+    private async Task<Guid> GetLabelIdByTitle(string title)
+    {
+        return await _dbContext.Labels
+            .Where(x => x.Title == title)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
     }
 }
