@@ -112,5 +112,20 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             Assert.Equal("Updated title", _entity.Title);
             Assert.Equal("Updated description", _entity.Description);
         }
+
+        [Fact]
+        public async Task DeleteByIdAsync_CanDeleteGoal_DeletedGoalInStore()
+        {
+            // Arrange
+            _dbContext.Goals.Add(_entity);
+            _dbContext.SaveChanges();
+
+            // Act
+            await _goalRepository.DeleteByIdAsync(_entityId);
+
+            // Assert
+            Assert.Null(await _dbContext.Goals
+                .FirstOrDefaultAsync(x => x.Id == _entityId));
+        }
     }
 }
