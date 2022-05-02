@@ -61,17 +61,14 @@ public class GoalRepository : IGoalRepository
     public async Task UpdateAsync(Guid id, GoalModel goal)
     {
         Guid labelId = await GetLabelIdByTitle(goal.Label.Title.Value);
-        _dbContext.Goals.Update(new GoalEntity 
-        { 
-            Title = goal.Title.Value, 
-            AssigneeId = goal.Assignee.Number, 
-            ReporterId = goal.Reporter.Number,
-            DateOfCreate= goal.DateOfCreate,
-            DateOfUpdate= goal.DateOfUpdate,
-            Description = goal.Description.Value,
-            Id = id,
-            LabelId = labelId,
-        });
+        GoalEntity entity = await _dbContext.Goals.FirstOrDefaultAsync(x => x.Id == id);
+        entity.Title = goal.Title.Value;
+        entity.AssigneeId = goal.Assignee.Number;
+        entity.ReporterId = goal.Reporter.Number;
+        entity.DateOfCreate = goal.DateOfCreate;
+        entity.DateOfUpdate = goal.DateOfUpdate;
+        entity.Description = goal.Description.Value;
+        entity.LabelId = labelId;
         await _dbContext.SaveChangesAsync();
     }
 

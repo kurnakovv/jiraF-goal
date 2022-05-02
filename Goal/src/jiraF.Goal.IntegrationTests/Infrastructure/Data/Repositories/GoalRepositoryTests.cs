@@ -91,5 +91,26 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
                     x.Title == uniqueTitle && 
                     x.Description == uniqueDescription));
         }
+
+        [Fact]
+        public async Task UpdateAsync_CanUpdateGoal_UpdatedGoalInStore()
+        {
+            // Arrange
+            _dbContext.Goals.Add(_entity);
+            _dbContext.SaveChanges();
+            GoalModel model = new(
+                new Title("Updated title"),
+                new Description("Updated description"),
+                new User(),
+                new User(),
+                new LabelModel(new Title("Test value")));
+
+            // Act
+            await _goalRepository.UpdateAsync(_entityId, model);
+
+            // Assert
+            Assert.Equal("Updated title", _entity.Title);
+            Assert.Equal("Updated description", _entity.Description);
+        }
     }
 }
