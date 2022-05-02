@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\jiraf.Goal.API\jiraF.Goal.API.csproj" />
+    <ProjectReference Include="..\jiraF.Goal.API\jiraF.Goal.API.csproj" />
   </ItemGroup>
 
 </Project>
