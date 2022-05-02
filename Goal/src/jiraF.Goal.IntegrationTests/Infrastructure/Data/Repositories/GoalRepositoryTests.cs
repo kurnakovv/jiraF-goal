@@ -1,8 +1,10 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Domain.Dtos;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
+using jiraF.Goal.API.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -65,6 +67,29 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             // Assert
             Assert.NotNull(result);
             Assert.Equal(_entity.Title, result.Title.Value);
+        }
+
+        [Fact]
+        public async Task AddAsync_CanAddGoal_EntityInStore()
+        {
+            // Arrange
+            string uniqueTitle = Guid.NewGuid().ToString();
+            string uniqueDescription = Guid.NewGuid().ToString();
+            GoalModel model = new(
+                new Title(uniqueTitle),
+                new Description(uniqueDescription),
+                new User(),
+                new User(),
+                new LabelModel(new Title("Test value")));
+
+            // Act
+            await _goalRepository.AddAsync(model);
+
+            // Assert
+            Assert.NotNull(await _dbContext.Goals
+                .FirstOrDefaultAsync(x => 
+                    x.Title == uniqueTitle && 
+                    x.Description == uniqueDescription));
         }
     }
 }
