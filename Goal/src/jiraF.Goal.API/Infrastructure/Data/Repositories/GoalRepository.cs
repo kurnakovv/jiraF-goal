@@ -43,31 +43,31 @@ public class GoalRepository : IGoalRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task AddAsync(GoalModel goal)
+    public async Task AddAsync(GoalModel model)
     {
-        Guid labelId = await GetLabelIdByTitle(goal.Label.Title.Value);
+        Guid labelId = await GetLabelIdByTitle(model.Label.Title.Value);
         _dbContext.Goals.Add(new GoalEntity
         {
-            Title = goal.Title.Value,
-            AssigneeId = goal.Assignee.Number,
-            ReporterId = goal.Reporter.Number,
+            Title = model.Title.Value,
+            AssigneeId = model.Assignee.Number,
+            ReporterId = model.Reporter.Number,
             LabelId = labelId,
-            Description = goal.Description.Value,
-            DateOfCreate = goal.DateOfCreate,
+            Description = model.Description.Value,
+            DateOfCreate = model.DateOfCreate,
         });
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(Guid id, GoalModel goal)
+    public async Task UpdateAsync(Guid id, GoalModel model)
     {
-        Guid labelId = await GetLabelIdByTitle(goal.Label.Title.Value);
+        Guid labelId = await GetLabelIdByTitle(model.Label.Title.Value);
         GoalEntity entity = await _dbContext.Goals.FirstOrDefaultAsync(x => x.Id == id);
-        entity.Title = goal.Title.Value;
-        entity.AssigneeId = goal.Assignee.Number;
-        entity.ReporterId = goal.Reporter.Number;
-        entity.DateOfCreate = goal.DateOfCreate;
-        entity.DateOfUpdate = goal.DateOfUpdate;
-        entity.Description = goal.Description.Value;
+        entity.Title = model.Title.Value;
+        entity.AssigneeId = model.Assignee.Number;
+        entity.ReporterId = model.Reporter.Number;
+        entity.DateOfCreate = model.DateOfCreate;
+        entity.DateOfUpdate = model.DateOfUpdate;
+        entity.Description = model.Description.Value;
         entity.LabelId = labelId;
         await _dbContext.SaveChangesAsync();
     }
