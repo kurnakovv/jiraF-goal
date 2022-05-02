@@ -28,4 +28,17 @@ public class GoalRepository : IGoalRepository
                 new LabelModel(new Title(x.LabelId.ToString()))))
             .ToListAsync();
     }
+
+    public async Task<GoalModel> GetByIdAsync(Guid id)
+    {
+        return await _dbContext.Goals
+            .Where(x => x.Id == id)
+            .Select(x => new GoalModel(
+                new Title(x.Title),
+                new Description(x.Description),
+                new User(),
+                new User(),
+                new LabelModel(new Title(x.LabelId.ToString()))))
+            .FirstOrDefaultAsync();
+    }
 }
