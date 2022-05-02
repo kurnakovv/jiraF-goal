@@ -82,4 +82,11 @@ public class GoalRepository : IGoalRepository
         });
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task DeleteByIdAsync(Guid id)
+    {
+        GoalEntity entity = await _dbContext.Goals.FirstOrDefaultAsync(x => x.Id == id);
+        _dbContext.Goals.Remove(entity);
+        await _dbContext.SaveChangesAsync();
+    }
 }

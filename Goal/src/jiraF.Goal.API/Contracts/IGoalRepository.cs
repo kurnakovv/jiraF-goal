@@ -8,4 +8,5 @@ public interface IGoalRepository
     Task<GoalModel> GetByIdAsync(Guid id);
     Task AddAsync(GoalModel model);
     Task UpdateAsync(Guid id, GoalModel model);
+    Task DeleteByIdAsync(Guid id);
 }
