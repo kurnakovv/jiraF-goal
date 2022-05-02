@@ -2,6 +2,7 @@
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Domain.Dtos;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
+using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,5 +41,24 @@ public class GoalRepository : IGoalRepository
                 new User(),
                 new LabelModel(new Title(x.LabelId.ToString()))))
             .FirstOrDefaultAsync();
+    }
+
+    public async Task AddAsync(GoalModel goal)
+    {
+        Guid labelId = await _dbContext.Labels
+            .Where(x => x.Title == goal.Title.Value)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+
+        _dbContext.Goals.Add(new GoalEntity
+        {
+            Title = goal.Title.Value,
+            AssigneeId = goal.Assignee.Number,
+            ReporterId = goal.Reporter.Number,
+            LabelId = labelId,
+            Description = goal.Description.Value,
+            DateOfCreate = goal.DateOfCreate,
+        });
+        await _dbContext.SaveChangesAsync();
     }
 }
