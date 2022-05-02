@@ -15,7 +15,9 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
     public class GoalRepositoryTests : IDisposable
     {
         private readonly AppDbContext _dbContext;
-        private readonly IGoalRepository _goalRepository;
+        private IGoalRepository _goalRepository;
+        private static Guid _entityId = Guid.NewGuid();
+        private GoalEntity _entity = new() { Id = _entityId, Title = "Test title", Description = "Test desc" };
         public GoalRepositoryTests()
         {
             var options = new DbContextOptionsBuilder<AppDbContext>()
@@ -48,6 +50,21 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             Assert.NotNull(result.ToList());
             Assert.True(result.Any());
             Assert.Equal(_dbContext.Goals.Count(), result.Count());
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_CanGetGoalById_GoalModel()
+        {
+            // Arrange
+            _dbContext.Goals.Add(_entity);
+            _dbContext.SaveChanges();
+
+            // Act
+            GoalModel result = await _goalRepository.GetByIdAsync(_entityId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(_entity.Title, result.Title.Value);
         }
     }
 }
