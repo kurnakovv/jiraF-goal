@@ -41,4 +41,11 @@ public class GoalController : ControllerBase
         await _goalRepository.UpdateAsync(id, model);
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _goalRepository.DeleteByIdAsync(id);
+        return Ok();
+    }
 }

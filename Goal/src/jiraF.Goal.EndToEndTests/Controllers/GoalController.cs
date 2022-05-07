@@ -2,7 +2,6 @@
 using jiraF.Goal.API.Domain.Dtos;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc.Testing;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -71,6 +70,14 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PutAsync("/Goal?id=a27723d9-fd4c-4b83-add8-f1c9152585ea", stringContent);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Delete_CanDeleteGoalByValidId_StatusCode200()
+        {
+            HttpResponseMessage response = await _client.DeleteAsync("/Goal?id=a27723d9-fd4c-4b83-add8-f1c9152585ea");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
