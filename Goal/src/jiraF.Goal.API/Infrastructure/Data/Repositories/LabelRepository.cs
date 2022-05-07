@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
+using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,5 +30,14 @@ public class LabelRepository : ILabelRepository
             .Where(x => x.Id == id)
             .Select(x => new LabelModel(new Title(x.Title)))
             .FirstOrDefaultAsync();
+    }
+
+    public async Task AddAsync(LabelModel model)
+    {
+        _dbContext.Labels.Add(new LabelEntity
+        {
+            Title = model.Title.Value,
+        });
+        await _dbContext.SaveChangesAsync();
     }
 }

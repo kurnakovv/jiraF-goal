@@ -6,4 +6,5 @@ public interface ILabelRepository
 {
     Task<IEnumerable<LabelModel>> GetAsync();
     Task<LabelModel> GetByIdAsync(Guid id);
+    Task AddAsync(LabelModel model);
 }
