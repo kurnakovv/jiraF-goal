@@ -12,7 +12,7 @@ using Xunit;
 
 namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
 {
-    public class LabelRepositoryTests : IDisposable
+    public class LabelRepositoryTests : IAsyncDisposable
     {
         private readonly AppDbContext _dbContext;
         private ILabelRepository _labelRepository;
@@ -35,10 +35,11 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             _labelRepository = new LabelRepository(_dbContext);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
             _dbContext.Database.EnsureDeleted();
-            _dbContext.DisposeAsync();
+            await _dbContext.DisposeAsync();
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
