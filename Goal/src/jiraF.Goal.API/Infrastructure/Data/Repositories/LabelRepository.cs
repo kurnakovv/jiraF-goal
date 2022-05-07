@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
+using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,5 +22,36 @@ public class LabelRepository : ILabelRepository
         return await _dbContext.Labels
             .Select(x => new LabelModel(new Title(x.Title)))
             .ToListAsync();
+    }
+
+    public async Task<LabelModel> GetByIdAsync(Guid id)
+    {
+        return await _dbContext.Labels
+            .Where(x => x.Id == id)
+            .Select(x => new LabelModel(new Title(x.Title)))
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task AddAsync(LabelModel model)
+    {
+        _dbContext.Labels.Add(new LabelEntity
+        {
+            Title = model.Title.Value,
+        });
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(Guid id, LabelModel model)
+    {
+        LabelEntity entity = await _dbContext.Labels.FirstOrDefaultAsync(x => x.Id == id);
+        entity.Title = model.Title.Value;
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeleteByIdAsync(Guid id)
+    {
+        LabelEntity entity = await _dbContext.Labels.FirstOrDefaultAsync(x => x.Id == id);
+        _dbContext.Labels.Remove(entity);
+        await _dbContext.SaveChangesAsync();
     }
 }
