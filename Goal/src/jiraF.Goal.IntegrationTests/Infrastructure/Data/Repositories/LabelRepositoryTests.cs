@@ -53,5 +53,20 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             Assert.True(result.Any());
             Assert.Equal(_dbContext.Labels.Count(), result.Count());
         }
+
+        [Fact]
+        public async Task GetByIdAsync_CanGetLabelById_LabelModel()
+        {
+            // Arrange
+            _dbContext.Labels.Add(_entity);
+            _dbContext.SaveChanges();
+
+            // Act
+            LabelModel result = await _labelRepository.GetByIdAsync(_entityId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(_entity.Title, result.Title.Value);
+        }
     }
 }

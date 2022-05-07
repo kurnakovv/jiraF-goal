@@ -22,4 +22,12 @@ public class LabelRepository : ILabelRepository
             .Select(x => new LabelModel(new Title(x.Title)))
             .ToListAsync();
     }
+
+    public async Task<LabelModel> GetByIdAsync(Guid id)
+    {
+        return await _dbContext.Labels
+            .Where(x => x.Id == id)
+            .Select(x => new LabelModel(new Title(x.Title)))
+            .FirstOrDefaultAsync();
+    }
 }
