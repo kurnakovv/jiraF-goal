@@ -101,5 +101,20 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             // Assert
             Assert.Equal("Updated title", _entity.Title);
         }
+
+        [Fact]
+        public async Task DeleteByIdAsync_CanDeleteLabel_DeletedLabelInStore()
+        {
+            // Arrange
+            _dbContext.Labels.Add(_entity);
+            _dbContext.SaveChanges();
+
+            // Act
+            await _labelRepository.DeleteByIdAsync(_entityId);
+
+            // Assert
+            Assert.Null(await _dbContext.Labels
+                .FirstOrDefaultAsync(x => x.Id == _entityId));
+        }
     }
 }

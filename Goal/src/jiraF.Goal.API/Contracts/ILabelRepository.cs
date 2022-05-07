@@ -8,4 +8,5 @@ public interface ILabelRepository
     Task<LabelModel> GetByIdAsync(Guid id);
     Task AddAsync(LabelModel model);
     Task UpdateAsync(Guid id, LabelModel model);
+    Task DeleteByIdAsync(Guid id);
 }

@@ -47,4 +47,11 @@ public class LabelRepository : ILabelRepository
         entity.Title = model.Title.Value;
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task DeleteByIdAsync(Guid id)
+    {
+        LabelEntity entity = await _dbContext.Labels.FirstOrDefaultAsync(x => x.Id == id);
+        _dbContext.Labels.Remove(entity);
+        await _dbContext.SaveChangesAsync();
+    }
 }
