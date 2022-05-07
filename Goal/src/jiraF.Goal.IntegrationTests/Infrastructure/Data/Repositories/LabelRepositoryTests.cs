@@ -85,5 +85,21 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             Assert.NotNull(await _dbContext.Labels
                 .FirstOrDefaultAsync(x => x.Title == uniqueTitle));
         }
+
+        [Fact]
+        public async Task UpdateAsync_CanUpdateLabel_UpdatedLabelInStore()
+        {
+            // Arrange
+            _dbContext.Labels.Add(_entity);
+            _dbContext.SaveChanges();
+            LabelModel model = new(
+                new Title("Updated title"));
+
+            // Act
+            await _labelRepository.UpdateAsync(_entityId, model);
+
+            // Assert
+            Assert.Equal("Updated title", _entity.Title);
+        }
     }
 }

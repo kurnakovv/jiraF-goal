@@ -40,4 +40,11 @@ public class LabelRepository : ILabelRepository
         });
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task UpdateAsync(Guid id, LabelModel model)
+    {
+        LabelEntity entity = await _dbContext.Labels.FirstOrDefaultAsync(x => x.Id == id);
+        entity.Title = model.Title.Value;
+        await _dbContext.SaveChangesAsync();
+    }
 }
