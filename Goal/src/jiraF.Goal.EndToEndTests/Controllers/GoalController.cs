@@ -56,5 +56,23 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task Update_CanUpdateValidModel_StatusCode200()
+        {
+            GoalModel goal = new(
+                new Title("Test value"),
+                new Description("Test value"),
+                new User(),
+                new User(),
+                new LabelModel(new Title("Test value")));
+
+            string jsonModel = JsonSerializer.Serialize(goal);
+            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PutAsync("/Goal?id=a27723d9-fd4c-4b83-add8-f1c9152585ea", stringContent);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }

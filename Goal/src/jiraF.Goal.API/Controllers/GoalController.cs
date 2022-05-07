@@ -34,4 +34,11 @@ public class GoalController : ControllerBase
         await _goalRepository.AddAsync(model);
         return Ok();
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(Guid id, GoalModel model)
+    {
+        await _goalRepository.UpdateAsync(id, model);
+        return Ok();
+    }
 }
