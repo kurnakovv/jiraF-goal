@@ -21,4 +21,10 @@ public class GoalController : ControllerBase
     {
         return await _goalRepository.GetAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<GoalModel> Get(Guid id)
+    {
+        return await _goalRepository.GetByIdAsync(id);
+    }
 }
