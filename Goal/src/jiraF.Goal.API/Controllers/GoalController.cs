@@ -27,4 +27,11 @@ public class GoalController : ControllerBase
     {
         return await _goalRepository.GetByIdAsync(id);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(GoalModel model)
+    {
+        await _goalRepository.AddAsync(model);
+        return Ok();
+    }
 }
