@@ -21,4 +21,31 @@ public class GoalController : ControllerBase
     {
         return await _goalRepository.GetAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<GoalModel> Get(Guid id)
+    {
+        return await _goalRepository.GetByIdAsync(id);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(GoalModel model)
+    {
+        await _goalRepository.AddAsync(model);
+        return Ok();
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(Guid id, GoalModel model)
+    {
+        await _goalRepository.UpdateAsync(id, model);
+        return Ok();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _goalRepository.DeleteByIdAsync(id);
+        return Ok();
+    }
 }
