@@ -21,4 +21,10 @@ public class LabelController : ControllerBase
     {
         return await _labelRepository.GetAsync();
     }
+
+    [HttpGet("{id}")]
+    public async Task<LabelModel> Get(Guid id)
+    {
+        return await _labelRepository.GetByIdAsync(id);
+    }
 }

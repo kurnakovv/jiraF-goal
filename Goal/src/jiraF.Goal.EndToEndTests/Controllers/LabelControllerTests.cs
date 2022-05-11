@@ -23,6 +23,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
         [Theory]
         [InlineData("/Label")]
+        [InlineData("/Label/4674f93c-6331-4e63-b298-349619fa8741")]
         public async Task CheckAllGETApiMethodsIsValid_StatusCode200(string url)
         {
             HttpResponseMessage response = await _client.GetAsync(url);
