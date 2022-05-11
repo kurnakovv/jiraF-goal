@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.ValueObjects;
+using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -31,6 +35,20 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             Assert.Equal(HttpStatusCode.OK, response?.StatusCode);
             Assert.Equal("application/json; charset=utf-8",
                 response?.Content?.Headers?.ContentType?.ToString());
+        }
+
+        [Fact]
+        public async Task Add_CanAddValidModel_StatusCode200()
+        {
+            LabelModel model = new(
+                new Title("New test value"));
+
+            string jsonModel = JsonSerializer.Serialize(model);
+            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PostAsync("/Label", stringContent);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

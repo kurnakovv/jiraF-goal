@@ -27,4 +27,11 @@ public class LabelController : ControllerBase
     {
         return await _labelRepository.GetByIdAsync(id);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(LabelModel model)
+    {
+        await _labelRepository.AddAsync(model);
+        return Ok();
+    }
 }
