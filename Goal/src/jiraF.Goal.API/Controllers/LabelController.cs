@@ -41,4 +41,11 @@ public class LabelController : ControllerBase
         await _labelRepository.UpdateAsync(id, model);
         return Ok();
     }
+
+    [HttpDelete]
+    public async Task<ActionResult> Delete(Guid id)
+    {
+        await _labelRepository.DeleteByIdAsync(id);
+        return Ok();
+    }
 }

@@ -64,5 +64,13 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task Delete_CanDeleteModelByValidId_StatusCode200()
+        {
+            HttpResponseMessage response = await _client.DeleteAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741");
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
