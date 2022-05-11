@@ -17,6 +17,13 @@ namespace jiraF.Goal.API.Infrastructure.Data
             new GoalEntity() { Id = new Guid("a27723d9-fd4c-4b83-add8-f1c9152585ec"), AssigneeId = _assigneeId, ReporterId = _reporterId, LabelId = _labelId, DateOfCreate = DateTime.UtcNow, Description = "Test desc3", Title = "Test title3" }
         };
 
+        private static List<LabelEntity> _labelEntities = new()
+        {
+            new LabelEntity() { Id = new Guid("4674f93c-6331-4e63-b298-349619fa8741"), Title = "Test title1" },
+            new LabelEntity() { Id = new Guid("4674f93c-6331-4e63-b298-349619fa8742"), Title = "Test title2" },
+            new LabelEntity() { Id = new Guid("4674f93c-6331-4e63-b298-349619fa8743"), Title = "Test title3" }
+        };
+
         public TestData(
             AppDbContext dbContext)
         {
@@ -28,6 +35,12 @@ namespace jiraF.Goal.API.Infrastructure.Data
             if (!_dbContext.Goals.Any())
             {
                 _dbContext.Goals.AddRange(_goalEntities);
+                _dbContext.SaveChanges();
+            }
+
+            if (!_dbContext.Labels.Any())
+            {
+                _dbContext.Labels.AddRange(_labelEntities);
                 _dbContext.SaveChanges();
             }
         }
