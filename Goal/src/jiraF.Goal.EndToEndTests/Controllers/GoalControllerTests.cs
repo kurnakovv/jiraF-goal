@@ -11,7 +11,7 @@ using Xunit;
 
 namespace jiraF.Goal.EndToEndTests.Controllers
 {
-    public class GoalController
+    public class GoalControllerTests
     {
         private readonly HttpClient _client;
 
