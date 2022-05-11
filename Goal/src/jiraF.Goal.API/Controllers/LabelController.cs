@@ -34,4 +34,11 @@ public class LabelController : ControllerBase
         await _labelRepository.AddAsync(model);
         return Ok();
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(Guid id, LabelModel model)
+    {
+        await _labelRepository.UpdateAsync(id, model);
+        return Ok();
+    }
 }

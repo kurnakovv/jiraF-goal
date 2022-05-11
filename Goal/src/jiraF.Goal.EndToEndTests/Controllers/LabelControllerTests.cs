@@ -50,5 +50,19 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
+
+        [Fact]
+        public async Task Update_CanUpdateValidModel_StatusCode200()
+        {
+            LabelModel model = new(
+                new Title("Updated title"));
+
+            string jsonModel = JsonSerializer.Serialize(model);
+            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PutAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741", stringContent);
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
