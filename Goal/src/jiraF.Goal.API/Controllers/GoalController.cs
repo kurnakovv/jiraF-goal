@@ -2,9 +2,11 @@
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos;
 using jiraF.Goal.API.Dtos.Goal;
+using jiraF.Goal.API.Dtos.Goal.Add;
 using jiraF.Goal.API.Dtos.Goal.Get;
 using jiraF.Goal.API.Dtos.Goal.GetById;
 using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -40,10 +42,17 @@ public class GoalController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(GoalModel model)
+    public async Task<AddResponseDto> Add(AddRequestDto requestDto)
     {
-        await _goalRepository.AddAsync(model);
-        return Ok();
+        GoalModel goal = new(
+            new Title(requestDto.Title),
+            new Description(requestDto.Description),
+            new Domain.Dtos.User { },
+            new Domain.Dtos.User { },
+            new LabelModel(new Title(requestDto.Title)));
+
+        Guid goalNumber = await _goalRepository.AddAsync(goal);
+        return new AddResponseDto { Id = goalNumber };
     }
 
     [HttpPut]

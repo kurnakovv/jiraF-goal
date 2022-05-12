@@ -43,10 +43,10 @@ public class GoalRepository : IGoalRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task AddAsync(GoalModel model)
+    public async Task<Guid> AddAsync(GoalModel model)
     {
         Guid labelId = await GetLabelIdByTitle(model.Label.Title.Value);
-        _dbContext.Goals.Add(new GoalEntity
+        GoalEntity entity = new GoalEntity
         {
             Title = model.Title.Value,
             AssigneeId = model.Assignee.Number,
@@ -54,8 +54,10 @@ public class GoalRepository : IGoalRepository
             LabelId = labelId,
             Description = model.Description.Value,
             DateOfCreate = model.DateOfCreate,
-        });
+        };
+        _dbContext.Goals.Add(entity);
         await _dbContext.SaveChangesAsync();
+        return entity.Id;
     }
 
     public async Task UpdateAsync(Guid id, GoalModel model)
