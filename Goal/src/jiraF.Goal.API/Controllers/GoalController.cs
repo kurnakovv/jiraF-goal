@@ -5,6 +5,7 @@ using jiraF.Goal.API.Dtos.Goal;
 using jiraF.Goal.API.Dtos.Goal.Add;
 using jiraF.Goal.API.Dtos.Goal.Get;
 using jiraF.Goal.API.Dtos.Goal.GetById;
+using jiraF.Goal.API.Dtos.Goal.Update;
 using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
@@ -56,9 +57,15 @@ public class GoalController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Guid id, GoalModel model)
+    public async Task<IActionResult> Update(UpdateRequestDto requestDto)
     {
-        await _goalRepository.UpdateAsync(id, model);
+        GoalModel goal = new(
+            new Title(requestDto.Title),
+            new Description(requestDto.Description),
+            new Domain.Dtos.User { },
+            new Domain.Dtos.User { },
+            new LabelModel(new Title(requestDto.Title)));
+        await _goalRepository.UpdateAsync(requestDto.Id, goal);
         return Ok();
     }
 

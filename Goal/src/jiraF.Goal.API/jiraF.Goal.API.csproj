@@ -14,9 +14,4 @@
 	<InternalsVisibleTo Include="jiraf.Goal.EndToEndTests" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Goal\Delete\" />
-    <Folder Include="Dtos\Goal\Update\" />
-  </ItemGroup>
-
 </Project>
