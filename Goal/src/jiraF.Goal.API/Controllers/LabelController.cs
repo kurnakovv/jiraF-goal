@@ -1,5 +1,7 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.Dtos.Label.Get;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -17,9 +19,14 @@ public class LabelController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<LabelModel>> Get()
+    public async Task<GetLabelsResponseDto> Get()
     {
-        return await _labelRepository.GetAsync();
+        IEnumerable<LabelModel> goals = await _labelRepository.GetAsync();
+        IEnumerable<LabelDto> dtos = goals.Select(x => new LabelDto
+        {
+            Title = x.Title.Value,
+        });
+        return new GetLabelsResponseDto() { Labels = dtos };
     }
 
     [HttpGet("{id}")]
