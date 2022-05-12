@@ -2,6 +2,7 @@
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.Dtos.Label.Get;
+using jiraF.Goal.API.Dtos.Label.GetById;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -30,9 +31,14 @@ public class LabelController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<LabelModel> Get(Guid id)
+    public async Task<GetLabelByIdResponseDto> Get(Guid id)
     {
-        return await _labelRepository.GetByIdAsync(id);
+        LabelModel label = await _labelRepository.GetByIdAsync(id);
+        LabelDto dto = new()
+        {
+            Title = label.Title.Value,
+        };
+        return new GetLabelByIdResponseDto { Label = dto };
     }
 
     [HttpPost]
