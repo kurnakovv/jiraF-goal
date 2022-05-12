@@ -1,8 +1,10 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.Dtos.Label.Add;
 using jiraF.Goal.API.Dtos.Label.Get;
 using jiraF.Goal.API.Dtos.Label.GetById;
+using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -42,10 +44,12 @@ public class LabelController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(LabelModel model)
+    public async Task<AddLabelResponseDto> Add(AddLabelRequestDto requestDto)
     {
-        await _labelRepository.AddAsync(model);
-        return Ok();
+        LabelModel model = new(
+            new Title(requestDto.Title));
+        Guid labelNumber = await _labelRepository.AddAsync(model);
+        return new AddLabelResponseDto { Id = labelNumber };
     }
 
     [HttpPut]

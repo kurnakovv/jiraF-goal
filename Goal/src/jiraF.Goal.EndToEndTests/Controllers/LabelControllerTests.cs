@@ -1,4 +1,5 @@
 ﻿using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Dtos.Label.Add;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -40,10 +41,11 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Add_CanAddValidModel_StatusCode200()
         {
-            LabelModel model = new(
-                new Title("New test value"));
-
-            string jsonModel = JsonSerializer.Serialize(model);
+            AddLabelRequestDto requestDto = new()
+            {
+                Title = "New test value",
+            };
+            string jsonModel = JsonSerializer.Serialize(requestDto);
             var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PostAsync("/Label", stringContent);
