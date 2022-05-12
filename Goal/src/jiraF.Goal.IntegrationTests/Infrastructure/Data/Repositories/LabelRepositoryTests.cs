@@ -67,6 +67,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
 
             // Assert
             Assert.NotNull(result);
+            Assert.Equal(_entity.Id, result.Number);
             Assert.Equal(_entity.Title, result.Title.Value);
         }
 

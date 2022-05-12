@@ -4,11 +4,19 @@ namespace jiraF.Goal.API.Domain;
 
 public class LabelModel
 {
-    public Title Title { get; set; }
+    public Guid Number { get; }
+    public Title Title { get; }
 
     public LabelModel(
         Title title)
     {
         Title = title;
+    }
+
+    public LabelModel(
+        Guid number,
+        Title title) : this(title)
+    {
+        Number = number;
     }
 }
