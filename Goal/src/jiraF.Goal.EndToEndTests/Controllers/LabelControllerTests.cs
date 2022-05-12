@@ -1,5 +1,7 @@
 ﻿using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.Dtos.Label.Add;
+using jiraF.Goal.API.Dtos.Label.Update;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -56,13 +58,19 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Update_CanUpdateValidModel_StatusCode200()
         {
-            LabelModel model = new(
-                new Title("Updated title"));
+            UpdateLabelRequestDto requestDto = new()
+            {
+                Label = new LabelDto
+                {
+                    Id = new System.Guid("4674f93c-6331-4e63-b298-349619fa8741"),
+                    Title = "Updated title",
+                }
+            };
 
-            string jsonModel = JsonSerializer.Serialize(model);
+            string jsonModel = JsonSerializer.Serialize(requestDto);
             var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.PutAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741", stringContent);
+            HttpResponseMessage response = await _client.PutAsync("/Label", stringContent);
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

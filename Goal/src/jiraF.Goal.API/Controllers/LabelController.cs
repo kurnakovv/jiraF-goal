@@ -4,6 +4,7 @@ using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.Dtos.Label.Add;
 using jiraF.Goal.API.Dtos.Label.Get;
 using jiraF.Goal.API.Dtos.Label.GetById;
+using jiraF.Goal.API.Dtos.Label.Update;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,9 +54,11 @@ public class LabelController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Guid id, LabelModel model)
+    public async Task<IActionResult> Update(UpdateLabelRequestDto requestDto)
     {
-        await _labelRepository.UpdateAsync(id, model);
+        LabelModel label = new(
+            new Title(requestDto.Label.Title));
+        await _labelRepository.UpdateAsync(requestDto.Label.Id, label);
         return Ok();
     }
 
