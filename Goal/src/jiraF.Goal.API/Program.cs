@@ -2,6 +2,7 @@ using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
