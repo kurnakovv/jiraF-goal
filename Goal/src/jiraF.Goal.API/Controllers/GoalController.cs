@@ -1,5 +1,9 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Dtos;
+using jiraF.Goal.API.Dtos.Goal;
+using jiraF.Goal.API.Dtos.Goal.Get;
+using jiraF.Goal.API.Dtos.Label;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -17,9 +21,11 @@ public class GoalController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<GoalModel>> Get()
+    public async Task<GetResponseDto> Get()
     {
-        return await _goalRepository.GetAsync();
+        IEnumerable<GoalModel> goals = await _goalRepository.GetAsync();
+        IEnumerable<GoalDto> dtos = goals.Select(x => Convert(x));
+        return new GetResponseDto() { Goals = dtos };
     }
 
     [HttpGet("{id}")]
@@ -47,5 +53,30 @@ public class GoalController : ControllerBase
     {
         await _goalRepository.DeleteByIdAsync(id);
         return Ok();
+    }
+
+    private GoalDto Convert(GoalModel model)
+    {
+        return new GoalDto
+        {
+            Title = model.Title.Value,
+            Assigee = new UserDto
+            {
+                Img = model.Assignee.Img,
+                Name = model.Assignee.Name,
+            },
+            Reporter = new UserDto
+            {
+                Name = model.Reporter.Name,
+                Img = model.Reporter.Img,
+            },
+            DateOfCreate = model.DateOfCreate,
+            DateOfUpdate = model.DateOfUpdate,
+            Description = model.Description.Value,
+            Label = new LabelDto
+            {
+                Title = model.Label.Title.Value,
+            }
+        };
     }
 }

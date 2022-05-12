@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Goal\Get\" />
     <Folder Include="Dtos\Goal\GetById\" />
     <Folder Include="Dtos\Goal\Add\" />
     <Folder Include="Dtos\Goal\Delete\" />
