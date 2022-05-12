@@ -1,5 +1,11 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.Dtos.Label.Add;
+using jiraF.Goal.API.Dtos.Label.Get;
+using jiraF.Goal.API.Dtos.Label.GetById;
+using jiraF.Goal.API.Dtos.Label.Update;
+using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
@@ -17,28 +23,42 @@ public class LabelController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<LabelModel>> Get()
+    public async Task<GetLabelsResponseDto> Get()
     {
-        return await _labelRepository.GetAsync();
+        IEnumerable<LabelModel> goals = await _labelRepository.GetAsync();
+        IEnumerable<LabelDto> dtos = goals.Select(x => new LabelDto
+        {
+            Title = x.Title.Value,
+        });
+        return new GetLabelsResponseDto() { Labels = dtos };
     }
 
     [HttpGet("{id}")]
-    public async Task<LabelModel> Get(Guid id)
+    public async Task<GetLabelByIdResponseDto> Get(Guid id)
     {
-        return await _labelRepository.GetByIdAsync(id);
+        LabelModel label = await _labelRepository.GetByIdAsync(id);
+        LabelDto dto = new()
+        {
+            Title = label.Title.Value,
+        };
+        return new GetLabelByIdResponseDto { Label = dto };
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(LabelModel model)
+    public async Task<AddLabelResponseDto> Add(AddLabelRequestDto requestDto)
     {
-        await _labelRepository.AddAsync(model);
-        return Ok();
+        LabelModel model = new(
+            new Title(requestDto.Title));
+        Guid labelNumber = await _labelRepository.AddAsync(model);
+        return new AddLabelResponseDto { Id = labelNumber };
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Guid id, LabelModel model)
+    public async Task<IActionResult> Update(UpdateLabelRequestDto requestDto)
     {
-        await _labelRepository.UpdateAsync(id, model);
+        LabelModel label = new(
+            new Title(requestDto.Label.Title));
+        await _labelRepository.UpdateAsync(requestDto.Label.Id, label);
         return Ok();
     }
 

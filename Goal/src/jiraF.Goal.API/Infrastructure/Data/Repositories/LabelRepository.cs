@@ -32,13 +32,15 @@ public class LabelRepository : ILabelRepository
             .FirstOrDefaultAsync();
     }
 
-    public async Task AddAsync(LabelModel model)
+    public async Task<Guid> AddAsync(LabelModel model)
     {
-        _dbContext.Labels.Add(new LabelEntity
+        LabelEntity entity = new()
         {
             Title = model.Title.Value,
-        });
+        };
+        _dbContext.Labels.Add(entity);
         await _dbContext.SaveChangesAsync();
+        return entity.Id;
     }
 
     public async Task UpdateAsync(Guid id, LabelModel model)
