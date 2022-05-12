@@ -80,6 +80,7 @@ public class GoalController : ControllerBase
     {
         return new GoalDto
         {
+            Id = model.Number,
             Title = model.Title.Value,
             Assigee = new UserDto
             {

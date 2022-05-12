@@ -22,6 +22,7 @@ public class GoalRepository : IGoalRepository
     {
         return await _dbContext.Goals
             .Select(x => new GoalModel(
+                x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
                 new User(),
@@ -35,6 +36,7 @@ public class GoalRepository : IGoalRepository
         return await _dbContext.Goals
             .Where(x => x.Id == id)
             .Select(x => new GoalModel(
+                x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
                 new User(),

@@ -6,6 +6,7 @@ namespace jiraF.Goal.API.Domain;
 
 public class GoalModel
 {
+    public Guid Number { get; }
     public Title Title { get; set; }
     public Description Description { get; set; }
     public User Reporter { get; set; }
@@ -29,6 +30,25 @@ public class GoalModel
         DateOfUpdate = default(DateTime);
         Label = label;
     }
+
+    public GoalModel(
+        Guid number,
+        Title title,
+        Description description,
+        User reporter,
+        User assignee,
+        LabelModel label)
+    {
+        Number = number;
+        Title = title;
+        Description = description;
+        Reporter = reporter;
+        Assignee = assignee;
+        DateOfCreate = DateTime.UtcNow;
+        DateOfUpdate = default(DateTime);
+        Label = label;
+    }
+
 
     public void EditLabel(IEnumerable<LabelModel> availableLabels, string label)
     {
