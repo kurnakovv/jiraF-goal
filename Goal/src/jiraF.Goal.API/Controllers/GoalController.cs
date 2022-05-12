@@ -3,6 +3,7 @@ using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos;
 using jiraF.Goal.API.Dtos.Goal;
 using jiraF.Goal.API.Dtos.Goal.Get;
+using jiraF.Goal.API.Dtos.Goal.GetById;
 using jiraF.Goal.API.Dtos.Label;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +30,13 @@ public class GoalController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<GoalModel> Get(Guid id)
+    public async Task<GetByIdResponseDto> Get(Guid id)
     {
-        return await _goalRepository.GetByIdAsync(id);
+        GoalModel goal = await _goalRepository.GetByIdAsync(id);
+        return new GetByIdResponseDto
+        {
+            Goal = Convert(goal),
+        };
     }
 
     [HttpPost]
