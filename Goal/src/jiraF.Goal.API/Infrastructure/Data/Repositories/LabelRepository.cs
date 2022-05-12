@@ -20,7 +20,9 @@ public class LabelRepository : ILabelRepository
     public async Task<IEnumerable<LabelModel>> GetAsync()
     {
         return await _dbContext.Labels
-            .Select(x => new LabelModel(new Title(x.Title)))
+            .Select(x => new LabelModel(
+                x.Id,
+                new Title(x.Title)))
             .ToListAsync();
     }
 
@@ -28,7 +30,9 @@ public class LabelRepository : ILabelRepository
     {
         return await _dbContext.Labels
             .Where(x => x.Id == id)
-            .Select(x => new LabelModel(new Title(x.Title)))
+            .Select(x => new LabelModel(
+                x.Id,
+                new Title(x.Title)))
             .FirstOrDefaultAsync();
     }
 

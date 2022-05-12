@@ -28,6 +28,7 @@ public class LabelController : ControllerBase
         IEnumerable<LabelModel> goals = await _labelRepository.GetAsync();
         IEnumerable<LabelDto> dtos = goals.Select(x => new LabelDto
         {
+            Id = x.Number,
             Title = x.Title.Value,
         });
         return new GetLabelsResponseDto() { Labels = dtos };
@@ -39,6 +40,7 @@ public class LabelController : ControllerBase
         LabelModel label = await _labelRepository.GetByIdAsync(id);
         LabelDto dto = new()
         {
+            Id = label.Number,
             Title = label.Title.Value,
         };
         return new GetLabelByIdResponseDto { Label = dto };
