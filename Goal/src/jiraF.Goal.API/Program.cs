@@ -40,7 +40,7 @@ builder.Services.AddSwaggerGen(c =>
             {
                 Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "GoalApiKey" }
             },
-            new string[] { }
+            new List<string>()
         }
     });
 });
