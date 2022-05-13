@@ -39,7 +39,16 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Set GoalApiKey
-        run: dotnet user-secrets set "GoalApiKey" "${{ secrets.GOAL_API_KEY }}" --project Goal/src/jiraF.Goal.API/
+        id: setgoalapikey
+        shell: bash
+        run: |
+          if [ "$GOAL_API_KEY" != "" ]; then
+            dotnet user-secrets set "GoalApiKey" "$GOAL_API_KEY" --project Goal/src/jiraF.Goal.API/
+          else
+            dotnet user-secrets set "GoalApiKey" "12345testApiKey" --project Goal/src/jiraF.Goal.API/
+          fi
+        env:
+          GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
