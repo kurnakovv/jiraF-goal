@@ -17,6 +17,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Set GoalApiKey
+      id: setgoalapikey
+      shell: bash
       run: |
         if [ ${{ secrets.GOAL_API_KEY != "" }} ]; then 
           dotnet user-secrets set "GoalApiKey" "${{ secrets.GOAL_API_KEY }}" --project Goal/src/jiraF.Goal.API/
