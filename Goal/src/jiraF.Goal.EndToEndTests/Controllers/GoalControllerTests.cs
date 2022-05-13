@@ -25,7 +25,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                     // ... Configure test services
                 });
 
-            _client = application.CreateClient();
+            _client = application.CreateClient(); 
         }
 
         [Theory]
