@@ -16,6 +16,8 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+    - name: Set GoalApiKey
+      run: dotnet user-secrets set "GoalApiKey" "${{ secrets.GOAL_API_KEY }}" --project .\Goal\src\jiraF.Goal.API\
     - name: Restore dependencies
       run: dotnet restore Goal
     - name: Build
