@@ -20,11 +20,13 @@ jobs:
       id: setgoalapikey
       shell: bash
       run: |
-        if [ ${{ secrets.GOAL_API_KEY != "" }} ]; then 
-          dotnet user-secrets set "GoalApiKey" "${{ secrets.GOAL_API_KEY }}" --project Goal/src/jiraF.Goal.API/
+        if [ "$GOAL_API_KEY" != "" ]; then
+          dotnet user-secrets set "GoalApiKey" "$GOAL_API_KEY" --project Goal/src/jiraF.Goal.API/
         else
           dotnet user-secrets set "GoalApiKey" "12345testApiKey" --project Goal/src/jiraF.Goal.API/
         fi
+      env:
+        GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
     - name: Restore dependencies
       run: dotnet restore Goal
     - name: Build
