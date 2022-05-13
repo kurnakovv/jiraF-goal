@@ -1,4 +1,5 @@
-﻿using jiraF.Goal.API.Contracts;
+﻿using jiraF.Goal.API.Attributes;
+using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.Dtos.Label.Add;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
 
+[ApiKeyAuthorize]
 [ApiController]
 [Route("[controller]")]
 public class LabelController : ControllerBase

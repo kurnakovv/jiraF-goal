@@ -2,6 +2,7 @@
 using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.Dtos.Label.Add;
 using jiraF.Goal.API.Dtos.Label.Update;
+using jiraF.Goal.API.Secrets;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -26,6 +27,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 });
 
             _client = application.CreateClient();
+            _client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
         }
 
         [Theory]
