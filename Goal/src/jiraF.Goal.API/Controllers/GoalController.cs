@@ -1,4 +1,5 @@
-﻿using jiraF.Goal.API.Contracts;
+﻿using jiraF.Goal.API.Attributes;
+using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Dtos;
 using jiraF.Goal.API.Dtos.Goal;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace jiraF.Goal.API.Controllers;
 
+[ApiKeyAuthorize]
 [ApiController]
 [Route("[controller]")]
 public class GoalController : ControllerBase
