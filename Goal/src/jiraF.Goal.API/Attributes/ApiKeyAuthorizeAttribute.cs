@@ -4,7 +4,7 @@ using Microsoft.Extensions.Primitives;
 
 namespace jiraF.Goal.API.Attributes;
 
-[AttributeUsage(validOn: AttributeTargets.Class | AttributeTargets.Method)]
+[AttributeUsage(validOn: AttributeTargets.Method | AttributeTargets.Class)]
 public class ApiKeyAuthorizeAttribute : Attribute, IAsyncActionFilter
 {
     public bool Disabled { get; set; } = false;
