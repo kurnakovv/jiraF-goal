@@ -24,6 +24,15 @@ public class ApiKeyAuthorizeAttribute : Attribute, IAsyncActionFilter
         }
         IConfiguration appSettings = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
         string apiKey = appSettings.GetValue<string>(APIKEYNAME);
+        if (apiKey == null)
+        {
+            context.Result = new ContentResult()
+            {
+                StatusCode = 401,
+                Content = "Api Key was not provided by server."
+            };
+            return;
+        }
         if (!apiKey.Equals(extractedApiKey))
         {
             context.Result = new ContentResult()
