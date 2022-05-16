@@ -14,7 +14,7 @@ ApiKey.Value = builder.Configuration["GoalApiKey"] ?? Environment.GetEnvironment
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString()); 
     //#if DEBUG
     //    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
     //#else
