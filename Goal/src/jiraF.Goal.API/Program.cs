@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-ApiKey.Value = builder.Configuration["GoalApiKey"];
+ApiKey.Value = builder.Configuration["GoalApiKey"] ?? Environment.GetEnvironmentVariable("GoalApiKey");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
