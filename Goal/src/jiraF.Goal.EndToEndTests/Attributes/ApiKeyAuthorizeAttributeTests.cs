@@ -5,6 +5,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using jiraF.Goal.API.Infrastructure.Data.Contexts;
+using System;
 
 namespace jiraF.Goal.EndToEndTests.Attributes;
 
@@ -17,7 +21,13 @@ public class ApiKeyAuthorizeAttributeTests
         var application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
-                    // ... Configure test services
+                builder.ConfigureServices(services =>
+                {
+                    services.AddDbContext<AppDbContext>(options =>
+                    {
+                        options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                    });
+                });
             });
 
         _client = application.CreateClient();
