@@ -14,12 +14,12 @@ ApiKey.Value = builder.Configuration["GoalApiKey"] ?? Environment.GetEnvironment
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
+#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
     options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-    //#if DEBUG
-    //    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-    //#else
-    //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-    //#endif
+#else
+    options.UseInMemoryDatabase("TestData");
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+#endif
 });
 
 builder.Services.AddControllers();
