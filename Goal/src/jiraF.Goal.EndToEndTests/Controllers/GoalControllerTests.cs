@@ -1,10 +1,11 @@
-﻿using jiraF.Goal.API.Domain;
-using jiraF.Goal.API.Domain.Dtos;
-using jiraF.Goal.API.Dtos.Goal.Add;
+﻿using jiraF.Goal.API.Dtos.Goal.Add;
 using jiraF.Goal.API.Dtos.Goal.Update;
+using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Secrets;
-using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -23,7 +24,13 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
-                    // ... Configure test services
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<AppDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                        });
+                    });
                 });
 
             _client = application.CreateClient();
