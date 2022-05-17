@@ -4,7 +4,24 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+  check-registry-secrets:
+   name: Check if container registry information was set on secrets
+   runs-on: ubuntu-latest
+   outputs:
+     have_secrets: ${{ steps.setvar.outputs.have_secrets }}
+   steps:
+     - id: setvar
+       run: |
+         if [[ "${{ secrets.SONAR_TOKEN }}" != "" ]]; \
+         then
+           echo "Secrets to use a container registry were configured in the repo"
+           echo "::set-output name=have_secrets::true"
+         else
+           echo "Secrets to use a container registry were not configured in the repo"
+           echo "::set-output name=have_secrets::false"
+         fi
   build:
+    needs: [check-registry-secrets]
     name: Build
     runs-on: windows-latest
     steps:
@@ -49,7 +66,9 @@ jobs:
           fi
         env:
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Build and analyze
+        if: needs.check-registry-secrets.outputs.have_secrets == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
