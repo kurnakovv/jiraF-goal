@@ -12,7 +12,7 @@ jobs:
       - name: Check token
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        # if: ${{ secrets.SONAR_TOKEN }} == ""
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
