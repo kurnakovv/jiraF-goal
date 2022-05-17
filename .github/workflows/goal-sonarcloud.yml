@@ -55,7 +55,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
-        shell: powershell
+        shell: bash
         run: |
           if [ "$GOAL_API_KEY" == "" ]; then
             dotnet tool install --global dotnet-coverage
