@@ -11,27 +11,27 @@ jobs:
       - name: Setup .NET
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
       - name: Set up JDK 11
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
       - uses: actions/checkout@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
@@ -40,7 +40,7 @@ jobs:
       - name: Cache SonarCloud scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         id: cache-sonar-scanner
         uses: actions/cache@v1
         with:
@@ -54,7 +54,7 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Set GoalApiKey
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         id: setgoalapikey
         shell: bash
         run: |
@@ -70,7 +70,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: ${{ secrets.SONAR_TOKEN }} == ""
+        if: $SONAR_TOKEN == ""
         shell: powershell
         run: |
           dotnet tool install --global dotnet-coverage
