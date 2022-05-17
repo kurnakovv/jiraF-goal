@@ -2,6 +2,7 @@
 using jiraF.Goal.API.Domain.Dtos;
 using jiraF.Goal.API.Exceptions;
 using jiraF.Goal.API.ValueObjects;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -18,9 +19,9 @@ public class GoalModelTests
         GoalModel goal = new(
             new Title("Test value"),
             new Description("Test value"),
-            new User(),
-            new User(),
-            new LabelModel(new Title("Test value")));
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            "Test value");
         LabelModel firstLabel = new(new Title("Test value1"));
         LabelModel secondLabel = new(new Title("Test value2"));
 
@@ -40,9 +41,9 @@ public class GoalModelTests
         GoalModel goal = new(
             new Title("Test value"),
             new Description("Test value"),
-            new User(),
-            new User(),
-            new LabelModel(new Title("Test value")));
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            "Test value");
         LabelModel firstLabel = new(new Title("Test value1"));
         LabelModel secondLabel = new(new Title("Test value2"));
 

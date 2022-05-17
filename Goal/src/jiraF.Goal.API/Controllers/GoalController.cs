@@ -50,9 +50,9 @@ public class GoalController : ControllerBase
         GoalModel goal = new(
             new Title(requestDto.Title),
             new Description(requestDto.Description),
-            new Domain.Dtos.User { },
-            new Domain.Dtos.User { },
-            new LabelModel(new Title(requestDto.Title)));
+            requestDto.ReporterId,
+            requestDto.AssigneeId,
+            requestDto.LabelTitle);
 
         Guid goalNumber = await _goalRepository.AddAsync(goal);
         return new AddResponseDto { Id = goalNumber };
@@ -64,9 +64,9 @@ public class GoalController : ControllerBase
         GoalModel goal = new(
             new Title(requestDto.Title),
             new Description(requestDto.Description),
-            new Domain.Dtos.User { },
-            new Domain.Dtos.User { },
-            new LabelModel(new Title(requestDto.Title)));
+            requestDto.ReporterId,
+            requestDto.AssigneeId,
+            requestDto.LabelTitle);
         await _goalRepository.UpdateAsync(requestDto.Id, goal);
         return Ok();
     }
