@@ -4,7 +4,24 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+  check-registry-secrets:
+   name: Check if container registry information was set on secrets
+   runs-on: ubuntu-latest
+   outputs:
+     have_secrets: ${{ steps.setvar.outputs.have_secrets }}
+   steps:
+     - id: setvar
+       run: |
+         if [[ "${{ secrets.GOAL_API_KEY }}" != "" ]]; \
+         then
+           echo "Secrets to use a container registry were configured in the repo"
+           echo "::set-output name=have_secrets::true"
+         else
+           echo "Secrets to use a container registry were not configured in the repo"
+           echo "::set-output name=have_secrets::false"
+         fi
   build:
+    needs: [check-registry-secrets]
     name: Build
     runs-on: windows-latest
     steps:
@@ -51,20 +68,16 @@ jobs:
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Build and analyze
+        if: needs.check-registry-secrets.outputs.have_secrets == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
-        shell: bash
+        shell: powershell
         run: |
-          if [ "$GOAL_API_KEY" != "" ]; then
-            dotnet tool install --global dotnet-coverage
-            .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-            dotnet restore Goal
-            dotnet build Goal --no-restore
-            dotnet test Goal --no-build --verbosity normal
-            dotnet-coverage collect 'dotnet test' -f xml -o 'coverage.xml'
-            .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-          else
-            exit 0;
-          fi
+          dotnet tool install --global dotnet-coverage
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+          dotnet restore Goal
+          dotnet build Goal --no-restore
+          dotnet test Goal --no-build --verbosity normal
+          dotnet-coverage collect 'dotnet test' -f xml -o 'coverage.xml'
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
