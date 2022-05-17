@@ -8,5 +8,5 @@ public class AddRequestDto
     public string Description { get; set; }
     public Guid ReporterId { get; set; }
     public Guid AssigneeId { get; set; }
-    public LabelDto Label { get; set; }
+    public string LabelTitle { get; set; }
 }

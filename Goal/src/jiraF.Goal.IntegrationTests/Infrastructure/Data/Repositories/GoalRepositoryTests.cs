@@ -79,9 +79,9 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             GoalModel model = new(
                 new Title(uniqueTitle),
                 new Description(uniqueDescription),
-                new User(),
-                new User(),
-                new LabelModel(new Title("Test value")));
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                "Test value");
 
             // Act
             await _goalRepository.AddAsync(model);
@@ -102,9 +102,9 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             GoalModel model = new(
                 new Title("Updated title"),
                 new Description("Updated description"),
-                new User(),
-                new User(),
-                new LabelModel(new Title("Test value")));
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                "Test value");
 
             // Act
             await _goalRepository.UpdateAsync(_entityId, model);

@@ -58,7 +58,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 Description = "Test value",
                 AssigneeId = System.Guid.Empty,
                 ReporterId = System.Guid.Empty,
-                Label = new API.Dtos.Label.LabelDto { Title = "Test value" }
+                LabelTitle = "Test value" 
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
@@ -79,7 +79,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 Description = "Test value",
                 AssigneeId = System.Guid.Empty,
                 ReporterId = System.Guid.Empty,
-                Label = new API.Dtos.Label.LabelDto { Title = "Test value" }
+                LabelTitle = "Test value"
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
