@@ -10,9 +10,13 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check token
-        if: ${{ secrets.SONAR_TOKEN == "" }}
-        shell: powershell
-        run: exit
+        shell: bash
+        run: |
+          if [ "$SONAR_TOKEN" != "" ]; then
+            exit
+          fi
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
