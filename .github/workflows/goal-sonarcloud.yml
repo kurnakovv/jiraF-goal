@@ -9,38 +9,23 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup .NET
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
       - name: Set up JDK 11
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
       - uses: actions/checkout@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache SonarCloud scanner
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
         id: cache-sonar-scanner
         uses: actions/cache@v1
         with:
@@ -54,7 +39,6 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Set GoalApiKey
-        if: $SONAR_TOKEN == ""
         id: setgoalapikey
         shell: bash
         run: |
@@ -70,13 +54,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        if: $SONAR_TOKEN == ""
+          GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
         shell: powershell
         run: |
-          dotnet tool install --global dotnet-coverage
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-          dotnet restore Goal
-          dotnet build Goal --no-restore
-          dotnet test Goal --no-build --verbosity normal
-          dotnet-coverage collect 'dotnet test' -f xml -o 'coverage.xml'
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          if [ "$GOAL_API_KEY" == "" ]; then
+            dotnet tool install --global dotnet-coverage
+            .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+            dotnet restore Goal
+            dotnet build Goal --no-restore
+            dotnet test Goal --no-build --verbosity normal
+            dotnet-coverage collect 'dotnet test' -f xml -o 'coverage.xml'
+            .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          else
+            exit 0;
+          fi
