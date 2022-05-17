@@ -7,28 +7,28 @@ namespace jiraF.Goal.API.Domain;
 public class GoalModel
 {
     public Guid Number { get; }
-    public Title Title { get; set; }
-    public Description Description { get; set; }
-    public User Reporter { get; set; }
-    public User Assignee { get; set; }
+    public Title Title { get; }
+    public Description Description { get;}
+    public User Reporter { get; }
+    public User Assignee { get; }
     public DateTime DateOfCreate { get; }
-    public DateTime DateOfUpdate { get; set; }
+    public DateTime DateOfUpdate { get; }
     public LabelModel Label { get; private set; }
 
     public GoalModel(
         Title title,
         Description description,
-        User reporter,
-        User assignee,
-        LabelModel label)
+        Guid reporterNumber,
+        Guid assigneeNumber,
+        string labelTitle)
     {
         Title = title;
         Description = description;
-        Reporter = reporter;
-        Assignee = assignee;
+        Reporter = new User(reporterNumber);
+        Assignee = new User(assigneeNumber);
         DateOfCreate = DateTime.UtcNow;
         DateOfUpdate = default(DateTime);
-        Label = label;
+        Label = new LabelModel(new Title(labelTitle));
     }
 
     public GoalModel(
@@ -37,6 +37,8 @@ public class GoalModel
         Description description,
         User reporter,
         User assignee,
+        DateTime dateOfCreate,
+        DateTime dateOfUpdate,
         LabelModel label)
     {
         Number = number;
@@ -44,8 +46,8 @@ public class GoalModel
         Description = description;
         Reporter = reporter;
         Assignee = assignee;
-        DateOfCreate = DateTime.UtcNow;
-        DateOfUpdate = default(DateTime);
+        DateOfCreate = dateOfCreate;
+        DateOfUpdate = dateOfUpdate;
         Label = label;
     }
 
