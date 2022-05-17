@@ -1,7 +1,13 @@
 name: Goal microservice SonarCloud
 on:
   push:
+    paths:
+      - '**.cs'
+      - '**.yml'
   pull_request:
+    paths:
+      - '**.cs'
+      - '**.yml'
     types: [opened, synchronize, reopened]
 jobs:
   check-registry-secrets:

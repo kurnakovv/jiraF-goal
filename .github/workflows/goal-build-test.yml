@@ -2,7 +2,13 @@ name: Goal microservice Build/Test
 
 on:
   push:
+    paths:
+      - '**.cs'
+      - '**.yml'
   pull_request:
+    paths:
+      - '**.cs'
+      - '**.yml'
     branches: [ main ]
 
 jobs:
