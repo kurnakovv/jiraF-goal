@@ -99,6 +99,7 @@ public class GoalController : ControllerBase
             Description = model.Description.Value,
             Label = new LabelDto
             {
+                Id = model.Label.Number,
                 Title = model.Label.Title.Value,
             }
         };

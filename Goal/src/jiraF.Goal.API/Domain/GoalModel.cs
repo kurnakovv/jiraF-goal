@@ -37,6 +37,8 @@ public class GoalModel
         Description description,
         User reporter,
         User assignee,
+        DateTime dateOfCreate,
+        DateTime dateOfUpdate,
         LabelModel label)
     {
         Number = number;
@@ -44,8 +46,8 @@ public class GoalModel
         Description = description;
         Reporter = reporter;
         Assignee = assignee;
-        DateOfCreate = DateTime.UtcNow;
-        DateOfUpdate = default(DateTime);
+        DateOfCreate = dateOfCreate;
+        DateOfUpdate = dateOfUpdate;
         Label = label;
     }
 
