@@ -9,28 +9,38 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup .NET
-        if: secrets.SONAR_TOKEN == ""
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
       - name: Set up JDK 11
-        if: secrets.SONAR_TOKEN == ""
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
       - uses: actions/checkout@v2
-        if: secrets.SONAR_TOKEN == ""
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
-        if: secrets.SONAR_TOKEN == ""
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Cache SonarCloud scanner
-        if: secrets.SONAR_TOKEN == ""
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         id: cache-sonar-scanner
         uses: actions/cache@v1
         with:
@@ -44,7 +54,7 @@ jobs:
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
       - name: Set GoalApiKey
-        if: secrets.SONAR_TOKEN == ""
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         id: setgoalapikey
         shell: bash
         run: |
@@ -55,11 +65,12 @@ jobs:
           fi
         env:
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       - name: Build and analyze
-        if: secrets.SONAR_TOKEN == ""
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: ${{ secrets.SONAR_TOKEN }} == ""
         shell: powershell
         run: |
           dotnet tool install --global dotnet-coverage
