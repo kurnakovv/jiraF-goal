@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     name: Build
+    if: ${{ secrets.SONAR_TOKEN == "" }}
     runs-on: windows-latest
     steps:
       - name: Setup .NET
