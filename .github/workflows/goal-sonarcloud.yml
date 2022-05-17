@@ -10,6 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check token
+        id: checktoken
         shell: bash
         run: |
           if [ "$SONAR_TOKEN" != "" ]; then
