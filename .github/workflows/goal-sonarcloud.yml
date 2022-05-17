@@ -12,7 +12,7 @@ jobs:
    steps:
      - id: setvar
        run: |
-         if [[ "${{ secrets.GOAL_API_KEY }}" != "" ]]; \
+         if [[ "${{ secrets.SONAR_TOKEN }}" == "" ]]; \
          then
            echo "Secrets to use a container registry were configured in the repo"
            echo "::set-output name=have_secrets::true"
