@@ -57,7 +57,7 @@ jobs:
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}
         shell: bash
         run: |
-          if [ "$GOAL_API_KEY" == "" ]; then
+          if [ "$GOAL_API_KEY" != "" ]; then
             dotnet tool install --global dotnet-coverage
             .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
             dotnet restore Goal
