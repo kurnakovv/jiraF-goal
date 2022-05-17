@@ -13,7 +13,13 @@ name: "Goal microservice CodeQL"
 
 on:
   push:
+    paths:
+      - '**.cs'
+      - '**.yml'
   pull_request:
+    paths:
+      - '**.cs'
+      - '**.yml'
     types: [opened, synchronize, reopened]
   schedule:
     - cron: '24 11 * * 2'
