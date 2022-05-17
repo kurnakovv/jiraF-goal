@@ -83,8 +83,7 @@ public class GoalRepository : IGoalRepository
         entity.Title = model.Title.Value;
         entity.AssigneeId = model.Assignee.Number;
         entity.ReporterId = model.Reporter.Number;
-        entity.DateOfCreate = model.DateOfCreate;
-        entity.DateOfUpdate = model.DateOfUpdate;
+        entity.DateOfUpdate = DateTime.UtcNow;
         entity.Description = model.Description.Value;
         entity.LabelId = labelId;
         await _dbContext.SaveChangesAsync();
