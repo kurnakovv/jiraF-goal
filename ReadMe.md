@@ -21,3 +21,12 @@
 # Reason
 <code><a href="#ArchitectureForContainerizedDotNetApplications" ><img src="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/media/cover-large.png" title=".NET Microservices: Architecture for Containerized .NET Applications" width="150" /></a></code><br>
 I have been reading this book, and I want to try microservice approach in practice
+
+# Contribution
+[Contribution instruction](https://github.com/KurnakovMaksim/jiraF/blob/main/CONTRIBUTION.md)
+
+<a href="https://github.com/KurnakovMaksim/jiraF/graphs/contributors">
+  
+  ![GitHub Contributors Image](https://contrib.rocks/image?repo=KurnakovMaksim/jiraF)
+  
+</a>
