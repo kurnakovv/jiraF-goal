@@ -52,7 +52,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Add_CanAddValidModel_StatusCode200()
         {
-            AddRequestDto requestDto = new()
+            AddGoalRequestDto requestDto = new()
             {
                 Title = "Test value",
                 Description = "Test value",
@@ -72,7 +72,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Update_CanUpdateValidModel_StatusCode200()
         {
-            UpdateRequestDto requestDto = new()
+            UpdateGoalRequestDto requestDto = new()
             {
                 Id = new System.Guid("a27723d9-fd4c-4b83-add8-f1c9152585ea"),
                 Title = "Test value",

@@ -2,7 +2,7 @@
 
 namespace jiraF.Goal.API.Dtos.Goal.Add;
 
-public class AddRequestDto
+public class AddGoalRequestDto
 {
     public string Title { get; set; }
     public string Description { get; set; }
