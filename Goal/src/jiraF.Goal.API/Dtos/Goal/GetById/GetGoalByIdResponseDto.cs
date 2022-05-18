@@ -1,6 +1,6 @@
 ﻿namespace jiraF.Goal.API.Dtos.Goal.GetById;
 
-public class GetByIdResponseDto
+public class GetGoalByIdResponseDto
 {
     public GoalDto Goal { get; set; }
 }

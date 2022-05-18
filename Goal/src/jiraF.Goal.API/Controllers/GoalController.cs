@@ -27,25 +27,25 @@ public class GoalController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<GetResponseDto> Get()
+    public async Task<GetGoalsResponseDto> Get()
     {
         IEnumerable<GoalModel> goals = await _goalRepository.GetAsync();
         IEnumerable<GoalDto> dtos = goals.Select(x => Convert(x));
-        return new GetResponseDto() { Goals = dtos };
+        return new GetGoalsResponseDto() { Goals = dtos };
     }
 
     [HttpGet("{id}")]
-    public async Task<GetByIdResponseDto> Get(Guid id)
+    public async Task<GetGoalByIdResponseDto> Get(Guid id)
     {
         GoalModel goal = await _goalRepository.GetByIdAsync(id);
-        return new GetByIdResponseDto
+        return new GetGoalByIdResponseDto
         {
             Goal = Convert(goal),
         };
     }
 
     [HttpPost]
-    public async Task<AddResponseDto> Add(AddRequestDto requestDto)
+    public async Task<AddGoalResponseDto> Add(AddGoalRequestDto requestDto)
     {
         GoalModel goal = new(
             new Title(requestDto.Title),
@@ -55,11 +55,11 @@ public class GoalController : ControllerBase
             requestDto.LabelTitle);
 
         Guid goalNumber = await _goalRepository.AddAsync(goal);
-        return new AddResponseDto { Id = goalNumber };
+        return new AddGoalResponseDto { Id = goalNumber };
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(UpdateRequestDto requestDto)
+    public async Task<IActionResult> Update(UpdateGoalRequestDto requestDto)
     {
         GoalModel goal = new(
             new Title(requestDto.Title),

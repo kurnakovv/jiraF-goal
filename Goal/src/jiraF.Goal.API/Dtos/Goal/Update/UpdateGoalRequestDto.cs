@@ -2,7 +2,7 @@
 
 namespace jiraF.Goal.API.Dtos.Goal.Update;
 
-public class UpdateRequestDto
+public class UpdateGoalRequestDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
