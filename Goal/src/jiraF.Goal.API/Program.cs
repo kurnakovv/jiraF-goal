@@ -72,6 +72,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("TestConfNamee");
+
 app.UseAuthorization();
 
 app.MapControllers();
