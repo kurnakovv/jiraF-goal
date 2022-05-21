@@ -22,6 +22,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 #endif
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "TestConfNamee",
+        builder =>
+        {
+            builder.WithOrigins("https://jiraf-goal.herokuapp.com");
+            builder.AllowAnyMethod();
+            builder.AllowAnyHeader();
+            builder.AllowAnyOrigin();
+        });
+});
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
