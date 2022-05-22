@@ -28,7 +28,20 @@ function App() {
     }).then(({ data }) => {
       setGoals(data.goals);
     });
-  }, [isAddedGoal])
+  }, [!isAddedGoal])
+
+  const handleDeleteGoal = (id: string): void => {
+    try {
+      axios.delete(`https://jiraf-goal.herokuapp.com/goal?id=${id}`, {
+        headers: {
+          "GoalApiKey": `${process.env.REACT_APP_GOAL_API_KEY}`,
+        }
+      })
+      setGoals((prev) => prev.filter((goal) => goal.id != id))
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className="App">
@@ -42,12 +55,15 @@ function App() {
       {
         goals && goals.map((goal: IGoal) => {
           return (
-            <Goal
-              key={goal.id}
-              id={goal.id}
-              title={goal.title}
-              description={goal.description}
-            />
+            <>
+              <Goal
+                key={goal.id}
+                id={goal.id}
+                title={goal.title}
+                description={goal.description}
+              />
+              <button onClick={() => handleDeleteGoal(goal.id)}>X</button>
+            </>
           )
         })
       }
