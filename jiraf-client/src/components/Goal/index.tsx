@@ -5,7 +5,6 @@ const Goal: React.FC<IGoal> = ({ id, title, description }) => {
         <>
             <div className="Container">
                 <h1>{title}</h1>
-                <b>{id}</b>
                 <p>{description}</p>
             </div>
         </>
