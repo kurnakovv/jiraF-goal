@@ -16,7 +16,7 @@
 | Mircroservice 	    | Docs | Build/Test |  SonarCloud | CodeQL |
 |------------------ | ------------ | -------------------------------------- | ---------------------------- | ----- |
 | jiraF.Goal | [Docs](https://github.com/KurnakovMaksim/jiraF/blob/main/Goal/ReadMe.md)  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=coverage)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) | [![CodeQL](https://github.com/KurnakovMaksim/jiraF/workflows/CodeQL/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions?query=workflow%3ACodeQL) |
-| jiraF.Member | ---  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml) | --- | --- |
+| jiraF.Member | ---  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml) | --- | [![CodeQL](https://github.com/KurnakovMaksim/jiraF/workflows/CodeQL/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions?query=workflow%3ACodeQL) |
 
 | Client | Production reference | NodeJs |
 | ------ | -------------------- | ---------- |
