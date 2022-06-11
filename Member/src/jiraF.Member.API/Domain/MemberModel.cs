@@ -3,7 +3,7 @@
 public class MemberModel
 {
     public Guid Number { get; }
-    public DateTime DateOfCreate { get; }
+    public DateTime DateOfRegistration { get; }
     public string Name { get; }
 
     public MemberModel(
@@ -18,7 +18,7 @@ public class MemberModel
         string name)
     {
         Number = number;
-        DateOfCreate = dateOfCreate;
+        DateOfRegistration = dateOfCreate;
         Name = name;
     }
 }
