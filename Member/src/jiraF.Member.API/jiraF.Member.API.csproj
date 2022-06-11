@@ -12,6 +12,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	<InternalsVisibleTo Include="jiraf.Member.EndToEndTests" />
   </ItemGroup>
 
 </Project>
