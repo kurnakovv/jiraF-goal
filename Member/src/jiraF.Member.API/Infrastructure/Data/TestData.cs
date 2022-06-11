@@ -25,6 +25,7 @@ public class TestData
         if (!_dbContext.Members.Any())
         {
             _dbContext.Members.AddRange(_memberEntities);
+            _dbContext.SaveChanges();
         }
     }
 }
