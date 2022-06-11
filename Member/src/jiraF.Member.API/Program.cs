@@ -1,6 +1,19 @@
+using jiraF.Member.API.Infrastructure.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+#else
+    options.UseInMemoryDatabase("TestData");
+    //options.UseNpgsql(builder.Configuration["ConnectionString"]);
+#endif
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
