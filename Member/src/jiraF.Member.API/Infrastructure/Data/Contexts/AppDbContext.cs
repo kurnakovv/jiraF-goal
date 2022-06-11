@@ -7,7 +7,9 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
-
+#if DEBUG
+        TestData(this).Seed();
+#endif
     }
 
     public DbSet<MemberEntity> Members { get; set; }
