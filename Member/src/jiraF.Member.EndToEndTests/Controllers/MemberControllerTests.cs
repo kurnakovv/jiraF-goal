@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net;
+using jiraF.Member.API.Dtos.Member.Registration;
+using System.Text.Json;
+using System.Text;
 
 namespace jiraF.Member.EndToEndTests.Controllers;
 
@@ -42,5 +45,20 @@ public class MemberControllerTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("application/json; charset=utf-8",
             response?.Content?.Headers?.ContentType?.ToString());
+    }
+
+    [Fact]
+    public async Task Registration_CanRegistrateValidMember_StatusCode200()
+    {
+        RegistrationMemberRequestDto requestDto = new()
+        {
+            Name = "TestName",
+        };
+        string jsonModel = JsonSerializer.Serialize(requestDto);
+        var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await _client.PostAsync("/Member", stringContent);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 }

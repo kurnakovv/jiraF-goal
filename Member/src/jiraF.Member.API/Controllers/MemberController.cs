@@ -1,6 +1,8 @@
 ﻿using jiraF.Member.API.Domain;
 using jiraF.Member.API.Dtos.Member;
+using jiraF.Member.API.Dtos.Member.Registration;
 using jiraF.Member.API.Infrastructure.Data.Contexts;
+using jiraF.Member.API.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,5 +38,27 @@ public class MemberController : ControllerBase
             Name = model.Name,
         };
         return dto;
+    }
+
+    [HttpPost]
+    public async Task<RegistrationMemberResponseDto> Registration(RegistrationMemberRequestDto requestDto)
+    {
+        MemberModel model = new(requestDto.Name);
+        MemberEntity entity = new() 
+        { 
+            Name = model.Name, 
+            DateOfRegistration = DateTime.UtcNow 
+        };
+        _dbContext.Members.Add(entity);
+        await _dbContext.SaveChangesAsync();
+        return new RegistrationMemberResponseDto() 
+        { 
+            Member = new MemberDto 
+            { 
+                Id = entity.Id,
+                DateOfRegistration = entity.DateOfRegistration,
+                Name = entity.Name,
+            } 
+        };
     }
 }
