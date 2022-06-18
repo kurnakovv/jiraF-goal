@@ -61,4 +61,12 @@ public class MemberControllerTests
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
+
+    [Fact]
+    public async Task Bun_CanBunMemberIfMemberExists_StatusCode_200()
+    {
+        HttpResponseMessage response = await _client.DeleteAsync("/Member/2f857708-6e97-413b-b495-f2161135616a");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }
