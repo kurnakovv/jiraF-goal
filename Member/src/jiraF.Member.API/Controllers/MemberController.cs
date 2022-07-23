@@ -40,6 +40,24 @@ public class MemberController : ControllerBase
         return dto;
     }
 
+    [HttpPost("GetByIds")]
+    public async Task<IEnumerable<MemberDto>> GetByIds(List<Guid> ids)
+    {
+        IEnumerable<MemberModel> models = await _dbContext.Members
+            .Where(x => ids.Contains(x.Id))
+            .Select(x => new MemberModel(
+                x.Id,
+                x.DateOfRegistration,
+                x.Name))
+            .ToListAsync();
+        return models.Select(x => new MemberDto()
+        {
+            Id = x.Number,
+            DateOfRegistration = x.DateOfRegistration,
+            Name = x.Name,
+        }).ToList();
+    }
+
     [HttpPost]
     public async Task<RegistrationMemberResponseDto> Registration(RegistrationMemberRequestDto requestDto)
     {
