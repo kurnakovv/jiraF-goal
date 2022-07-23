@@ -40,5 +40,5 @@ jobs:
         cache-dependency-path: "./jiraf-client/package-lock.json"
     - run: ls    
     - run: npm install
-    - run: npm run build --if-present
+    - run: npm run build
     - run: npm test
