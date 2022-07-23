@@ -10,6 +10,7 @@ using System.Net;
 using jiraF.Member.API.Dtos.Member.Registration;
 using System.Text.Json;
 using System.Text;
+using System.Collections.Generic;
 
 namespace jiraF.Member.EndToEndTests.Controllers;
 
@@ -45,6 +46,20 @@ public class MemberControllerTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("application/json; charset=utf-8",
             response?.Content?.Headers?.ContentType?.ToString());
+    }
+
+    [Fact]
+    public async Task GetByIds_CanGetDataByMemberIds_StatusCode200()
+    {
+        List<Guid> requestDto = new()
+        {
+            new Guid("2f857708-6e97-413b-b495-f2161135616a"),
+            new Guid("2f857708-6e97-413b-b495-f2161135616b")
+        };
+        string jsonModel = JsonSerializer.Serialize(requestDto);
+        var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+        HttpResponseMessage response = await _client.PostAsync("/Member/GetByIds", stringContent);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Fact]
