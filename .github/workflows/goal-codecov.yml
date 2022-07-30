@@ -21,7 +21,7 @@ jobs:
             goal:
               - 'Goal/**'
   build:
-    if: steps.changes.outputs.src == 'true'
+    if: steps.changes.outputs.goal == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
