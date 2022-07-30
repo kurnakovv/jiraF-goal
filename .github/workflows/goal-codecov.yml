@@ -11,11 +11,25 @@ on:
       - '**.yml'
     branches: [ main ]
 jobs:
-  build:
-
+  filter-folder:
     runs-on: ubuntu-latest
-
     steps:
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            goal:
+              - 'Goal/**'
+  build:
+    if: steps.changes.outputs.src == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            goal:
+              - 'Goal/**'
       - uses: actions/checkout@v3
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
