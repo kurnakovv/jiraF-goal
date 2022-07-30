@@ -11,7 +11,7 @@ using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
-namespace jiraF.Goal.API.Controllers;
+namespace jiraF.Goal.API.Controllers; 
 
 [ApiKeyAuthorize]
 [ApiController]
