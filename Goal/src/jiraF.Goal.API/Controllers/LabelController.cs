@@ -9,7 +9,7 @@ using jiraF.Goal.API.Dtos.Label.Update;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 
-namespace jiraF.Goal.API.Controllers; 
+namespace jiraF.Goal.API.Controllers;
 
 [ApiKeyAuthorize]
 [ApiController]
