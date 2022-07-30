@@ -16,7 +16,8 @@ jobs:
     outputs:
      is_folder_changed: ${{ steps.changes.outputs.goal }}
     steps:
-      - uses: dorny/paths-filter@v2
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v2.10.2
         id: changes
         with:
           filters: |
