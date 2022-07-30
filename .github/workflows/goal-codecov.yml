@@ -13,6 +13,8 @@ on:
 jobs:
   filter-folder:
     runs-on: ubuntu-latest
+    outputs:
+     is_folder_changed: ${{ steps.changes.outputs.goal }}
     steps:
       - uses: dorny/paths-filter@v2
         id: changes
@@ -21,7 +23,7 @@ jobs:
             goal:
               - 'Goal/**'
   build:
-    if: steps.changes.outputs.goal == 'true'
+    if: needs.filter-folder.outputs.is_folder_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/paths-filter@v2
