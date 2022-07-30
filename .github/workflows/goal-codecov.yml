@@ -25,6 +25,7 @@ jobs:
             goal:
               - 'Goal/**'
   build:
+    needs: [filter-folder]
     if: needs.filter-folder.outputs.is_folder_changed == 'true'
     runs-on: ubuntu-latest
     steps:
