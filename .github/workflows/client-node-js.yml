@@ -19,8 +19,22 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
+  filter-folder:
+    runs-on: ubuntu-latest
+    outputs:
+     is_folder_changed: ${{ steps.changes.outputs.client }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v2.10.2
+        id: changes
+        with:
+          filters: |
+            client:
+              - 'jiraf-client/**'
   build:
-
+    needs: [filter-folder]
+    if: needs.filter-folder.outputs.is_folder_changed == 'true'
     runs-on: ubuntu-latest
     defaults:
       run:

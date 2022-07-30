@@ -26,8 +26,22 @@ jobs:
            echo "Secrets to use a container registry were not configured in the repo"
            echo "::set-output name=have_secrets::false"
          fi
+  filter-folder:
+    runs-on: ubuntu-latest
+    outputs:
+     is_folder_changed: ${{ steps.changes.outputs.member }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v2.10.2
+        id: changes
+        with:
+          filters: |
+            member:
+              - 'Member/**'
   build:
-    needs: [check-registry-secrets]
+    needs: [check-registry-secrets, filter-folder]
+    if: needs.filter-folder.outputs.is_folder_changed == 'true'
     name: Build
     runs-on: windows-latest
     steps:

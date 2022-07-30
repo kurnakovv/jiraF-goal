@@ -12,10 +12,23 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  filter-folder:
     runs-on: ubuntu-latest
-
+    outputs:
+     is_folder_changed: ${{ steps.changes.outputs.member }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v2.10.2
+        id: changes
+        with:
+          filters: |
+            member:
+              - 'Member/**'
+  build:
+    needs: [filter-folder]
+    if: needs.filter-folder.outputs.is_folder_changed == 'true'
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET

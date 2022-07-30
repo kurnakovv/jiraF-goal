@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-{ 
+{
 #if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
     options.UseInMemoryDatabase(Guid.NewGuid().ToString());
 #else
