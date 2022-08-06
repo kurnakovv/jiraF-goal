@@ -7,8 +7,8 @@ namespace jiraF.Goal.API.Infrastructure.Data
     {
         private readonly AppDbContext _dbContext;
 
-        private readonly static Guid _assigneeId = new("a14bea35-2311-4712-851c-744919effe3c");
-        private readonly static Guid _reporterId = new("0bbde290-3050-414d-8e0a-2dadecc7cdbb");
+        private readonly static Guid _assigneeId = new("2f857708-6e97-413b-b495-f2161135616a");
+        private readonly static Guid _reporterId = new("2f857708-6e97-413b-b495-f2161135616b");
         private readonly static Guid _labelId = new("4674f93c-6331-4e63-b298-349619fa8741");
         private static List<GoalEntity> _goalEntities = new()
         {
