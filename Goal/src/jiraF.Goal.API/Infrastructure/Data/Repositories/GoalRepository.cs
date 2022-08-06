@@ -25,8 +25,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new User(),
-                new User(),
+                new User(x.ReporterId),
+                new User(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
