@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.Attributes;
 using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.Domain.Dtos;
 using jiraF.Goal.API.Dtos;
 using jiraF.Goal.API.Dtos.Goal;
 using jiraF.Goal.API.Dtos.Goal.Add;
@@ -10,6 +11,8 @@ using jiraF.Goal.API.Dtos.Goal.Update;
 using jiraF.Goal.API.Dtos.Label;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
 
 namespace jiraF.Goal.API.Controllers;
 
@@ -30,7 +33,41 @@ public class GoalController : ControllerBase
     public async Task<GetGoalsResponseDto> Get()
     {
         IEnumerable<GoalModel> goals = await _goalRepository.GetAsync();
-        IEnumerable<GoalDto> dtos = goals.Select(x => Convert(x));
+        List<Guid> memberIds = new(); 
+        memberIds.AddRange(goals.Select(x => x.Reporter.Number));
+        memberIds.AddRange(goals.Select(x => x.Assignee.Number));
+        IEnumerable<UserDto> members = new List<UserDto>();
+        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.herokuapp.com") })
+        {
+            string jsonModel = JsonSerializer.Serialize(memberIds);
+            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync("/Member/GetByIds", stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                members = JsonSerializer.Deserialize<IEnumerable<UserDto>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+            }
+        }
+        IEnumerable<GoalModel> goalsWithMembers = 
+            from g in goals
+            join m in members on g.Reporter.Number equals m.Id into reporters
+            join m in members on g.Assignee.Number equals m.Id into assignees
+            from r in reporters.DefaultIfEmpty()
+            from a in assignees.DefaultIfEmpty()
+            select new GoalModel(
+                g.Number,
+                g.Title,
+                g.Description,
+                r == null ? new User() : new User(r.Id, r.Name, r.Img),
+                a == null ? new User() : new User(a.Id, a.Name, a.Img),
+                g.DateOfCreate,
+                g.DateOfUpdate,
+                g.Label
+                );
+        IEnumerable<GoalDto> dtos = goalsWithMembers.Select(x => Convert(x));
         return new GetGoalsResponseDto() { Goals = dtos };
     }
 
@@ -86,11 +123,13 @@ public class GoalController : ControllerBase
             Title = model.Title.Value,
             Assigee = new UserDto
             {
+                Id = model.Assignee.Number,
                 Img = model.Assignee.Img,
                 Name = model.Assignee.Name,
             },
             Reporter = new UserDto
             {
+                Id = model.Reporter.Number,
                 Name = model.Reporter.Name,
                 Img = model.Reporter.Img,
             },
