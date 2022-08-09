@@ -6,7 +6,7 @@ Microservice with members logic.
 * Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/Member/db.sql)
 * Configure connection string
 ``` ps
-dotnet user-secrets set "ConnectionString" "Server=localhost;Port=5432;Database=jiraf_member;User Id=postgres;Password=yourPassword;" --project ".\Member\src\jiraF.Member.API\"
+dotnet member-secrets set "ConnectionString" "Server=localhost;Port=5432;Database=jiraf_member;Member Id=postgres;Password=yourPassword;" --project ".\Member\src\jiraF.Member.API\"
 ```
 * Edit program file from
 ``` cs

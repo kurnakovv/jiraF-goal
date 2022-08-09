@@ -25,8 +25,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new User(x.ReporterId),
-                new User(x.AssigneeId),
+                new Member(x.ReporterId),
+                new Member(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
@@ -46,8 +46,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new User(),
-                new User(),
+                new Member(),
+                new Member(),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(

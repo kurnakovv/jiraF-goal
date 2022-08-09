@@ -39,9 +39,9 @@ jobs:
         shell: bash
         run: |
           if [ "$MEMBER_API_KEY" != "" ]; then
-            dotnet user-secrets set "MemberApiKey" "$MEMBER_API_KEY" --project Member/src/jiraF.Member.API/
+            dotnet member-secrets set "MemberApiKey" "$MEMBER_API_KEY" --project Member/src/jiraF.Member.API/
           else
-            dotnet user-secrets set "MemberApiKey" "12345testApiKey" --project Member/src/jiraF.Member.API/
+            dotnet member-secrets set "MemberApiKey" "12345testApiKey" --project Member/src/jiraF.Member.API/
           fi
         env:
           MEMBER_API_KEY: ${{ secrets.MEMBER_API_KEY }}

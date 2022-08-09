@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>0121e8f2-e634-46be-aa43-61ab177788e5</UserSecretsId>
+    <MemberSecretsId>0121e8f2-e634-46be-aa43-61ab177788e5</MemberSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
