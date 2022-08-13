@@ -61,6 +61,9 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddTransient<IGoalRepository, GoalRepository>();
 builder.Services.AddTransient<ILabelRepository, LabelRepository>();
 
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<AppDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -77,5 +80,7 @@ app.UseCors("TestConfNamee");
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/ping");
 
 app.Run();
