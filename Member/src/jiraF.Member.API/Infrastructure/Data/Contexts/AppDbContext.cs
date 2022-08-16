@@ -1,7 +1,7 @@
-﻿using jiraF.Member.API.Infrastructure.Data.Entities;
+﻿using jiraF.User.API.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace jiraF.Member.API.Infrastructure.Data.Contexts;
+namespace jiraF.User.API.Infrastructure.Data.Contexts;
 
 public class AppDbContext : DbContext
 {
@@ -12,5 +12,5 @@ public class AppDbContext : DbContext
 #endif
     }
 
-    public DbSet<MemberEntity> Members { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
 }

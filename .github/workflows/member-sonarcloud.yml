@@ -1,4 +1,4 @@
-name: Member microservice SonarCloud
+name: User microservice SonarCloud
 on:
   push:
     paths:
@@ -29,7 +29,7 @@ jobs:
   filter-folder:
     runs-on: ubuntu-latest
     outputs:
-     is_folder_changed: ${{ steps.changes.outputs.member }}
+     is_folder_changed: ${{ steps.changes.outputs.user }}
     steps:
       - uses: actions/checkout@v3
       - name: Paths Changes Filter
@@ -37,8 +37,8 @@ jobs:
         id: changes
         with:
           filters: |
-            member:
-              - 'Member/**'
+            user:
+              - 'User/**'
   build:
     needs: [check-registry-secrets, filter-folder]
     if: needs.filter-folder.outputs.is_folder_changed == 'true'
@@ -84,8 +84,8 @@ jobs:
         run: |
           dotnet tool install --global dotnet-coverage
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"KurnakovMaksim_jiraF" /o:"kurnakovmaksim" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
-          dotnet restore Member
-          dotnet build Member --no-restore
-          dotnet test Member --no-build --verbosity normal
-          dotnet-coverage collect 'dotnet test Member' -f xml -o 'coverage.xml'
+          dotnet restore User
+          dotnet build User --no-restore
+          dotnet test User --no-build --verbosity normal
+          dotnet-coverage collect 'dotnet test User' -f xml -o 'coverage.xml'
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"

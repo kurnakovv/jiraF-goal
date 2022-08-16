@@ -80,9 +80,9 @@ jobs:
         shell: bash
         run: |
           if [ "$GOAL_API_KEY" != "" ]; then
-            dotnet member-secrets set "GoalApiKey" "$GOAL_API_KEY" --project Goal/src/jiraF.Goal.API/
+            dotnet user-secrets set "GoalApiKey" "$GOAL_API_KEY" --project Goal/src/jiraF.Goal.API/
           else
-            dotnet member-secrets set "GoalApiKey" "12345testApiKey" --project Goal/src/jiraF.Goal.API/
+            dotnet user-secrets set "GoalApiKey" "12345testApiKey" --project Goal/src/jiraF.Goal.API/
           fi
         env:
           GOAL_API_KEY: ${{ secrets.GOAL_API_KEY }}

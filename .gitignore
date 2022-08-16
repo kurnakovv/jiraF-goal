@@ -3,15 +3,15 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-# Member-specific files
-*.rsmember
+# User-specific files
+*.rsuser
 *.suo
-*.member
-*.memberosscache
+*.user
+*.userosscache
 *.sln.docstates
 
-# Member-specific files (MonoDevelop/Xamarin Studio)
-*.memberprefs
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
 
 # Mono auto generated files
 mono_crash.*
@@ -130,7 +130,7 @@ $tf/
 # ReSharper is a .NET coding add-in
 _ReSharper*/
 *.[Rr]e[Ss]harper
-*.DotSettings.member
+*.DotSettings.user
 
 # TeamCity is a build add-in
 _TeamCity*
@@ -270,7 +270,7 @@ ServiceFabricBackup/
 *.rdl.data
 *.bim.layout
 *.bim_*.settings
-*.rptproj.rsmember
+*.rptproj.rsuser
 *- [Bb]ackup.rdl
 *- [Bb]ackup ([0-9]).rdl
 *- [Bb]ackup ([0-9][0-9]).rdl
@@ -353,7 +353,7 @@ ASALocalRun/
 *.binlog
 
 # NVidia Nsight GPU debugger configuration file
-*.nvmember
+*.nvuser
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/

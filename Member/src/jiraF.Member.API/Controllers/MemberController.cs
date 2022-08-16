@@ -1,37 +1,37 @@
-﻿using jiraF.Member.API.Domain;
-using jiraF.Member.API.Dtos.Member;
-using jiraF.Member.API.Dtos.Member.Registration;
-using jiraF.Member.API.Infrastructure.Data.Contexts;
-using jiraF.Member.API.Infrastructure.Data.Entities;
+﻿using jiraF.User.API.Domain;
+using jiraF.User.API.Dtos.User;
+using jiraF.User.API.Dtos.User.Registration;
+using jiraF.User.API.Infrastructure.Data.Contexts;
+using jiraF.User.API.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace jiraF.Member.API.Controllers;
+namespace jiraF.User.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MemberController : ControllerBase
+public class UserController : ControllerBase
 {
     private readonly AppDbContext _dbContext;
 
-    public MemberController(
+    public UserController(
         AppDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
     [HttpGet("{id}")]
-    public async Task<MemberDto> Get(Guid id)
+    public async Task<UserDto> Get(Guid id)
     {
-        MemberModel model = await _dbContext.Members
+        UserModel model = await _dbContext.Users
             .Where(x => x.Id == id)
             .Select(x =>
-                new MemberModel(
+                new UserModel(
                     x.Id,
                     x.DateOfRegistration,
                     x.Name))
             .FirstOrDefaultAsync();
-        MemberDto dto = new()
+        UserDto dto = new()
         {
             Id = model.Number,
             DateOfRegistration = model.DateOfRegistration,
@@ -41,16 +41,16 @@ public class MemberController : ControllerBase
     }
 
     [HttpPost("GetByIds")]
-    public async Task<IEnumerable<MemberDto>> GetByIds(List<Guid> ids)
+    public async Task<IEnumerable<UserDto>> GetByIds(List<Guid> ids)
     {
-        IEnumerable<MemberModel> models = await _dbContext.Members
+        IEnumerable<UserModel> models = await _dbContext.Users
             .Where(x => ids.Contains(x.Id))
-            .Select(x => new MemberModel(
+            .Select(x => new UserModel(
                 x.Id,
                 x.DateOfRegistration,
                 x.Name))
             .ToListAsync();
-        return models.Select(x => new MemberDto()
+        return models.Select(x => new UserDto()
         {
             Id = x.Number,
             DateOfRegistration = x.DateOfRegistration,
@@ -59,19 +59,19 @@ public class MemberController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<RegistrationMemberResponseDto> Registration(RegistrationMemberRequestDto requestDto)
+    public async Task<RegistrationUserResponseDto> Registration(RegistrationUserRequestDto requestDto)
     {
-        MemberModel model = new(requestDto.Name);
-        MemberEntity entity = new() 
+        UserModel model = new(requestDto.Name);
+        UserEntity entity = new() 
         { 
             Name = model.Name, 
             DateOfRegistration = DateTime.UtcNow 
         };
-        _dbContext.Members.Add(entity);
+        _dbContext.Users.Add(entity);
         await _dbContext.SaveChangesAsync();
-        return new RegistrationMemberResponseDto() 
+        return new RegistrationUserResponseDto() 
         { 
-            Member = new MemberDto 
+            User = new UserDto 
             { 
                 Id = entity.Id,
                 DateOfRegistration = entity.DateOfRegistration,
@@ -83,10 +83,10 @@ public class MemberController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Bun(Guid id)
     {
-        MemberEntity entity = await _dbContext.Members
+        UserEntity entity = await _dbContext.Users
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
-        _dbContext.Members.Remove(entity);
+        _dbContext.Users.Remove(entity);
         await _dbContext.SaveChangesAsync();
         return Ok();
     }

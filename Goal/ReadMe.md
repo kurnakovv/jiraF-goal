@@ -4,7 +4,7 @@ Microservice with goals logic.
 # How to start
 * Setup ApiKey
 ``` ps
-dotnet member-secrets set "GoalApiKey" "yourApiKey" --project ".\Goal\src\jiraF.Goal.API\"
+dotnet user-secrets set "GoalApiKey" "yourApiKey" --project ".\Goal\src\jiraF.Goal.API\"
 ```
 * Start project
 ``` ps
@@ -18,7 +18,7 @@ https://localhost:7079/swagger/index.html
 * Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/Goal/db.sql)
 * Configure connection string
 ``` ps
-dotnet member-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database=jiraf_goal;Member Id=postgres;Password=yourPassword;" --project ".\Goal\src\jiraF.Goal.API\"
+dotnet user-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database=jiraf_goaUserer Id=postgres;Password=yourPassword;" --project ".\Goal\src\jiraF.Goal.API\"
 ```
 * Edit program file from
 ``` cs

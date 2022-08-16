@@ -24,7 +24,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\jiraF.Member.API\jiraF.Member.API.csproj" />
+		<ProjectReference Include="..\jiraF.User.API\jiraF.User.API.csproj" />
 	</ItemGroup>
 
 </Project>
