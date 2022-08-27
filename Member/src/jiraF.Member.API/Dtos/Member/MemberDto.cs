@@ -1,6 +1,6 @@
-﻿namespace jiraF.User.API.Dtos.User;
+﻿namespace jiraF.Member.API.Dtos.Member;
 
-public class UserDto
+public class MemberDto
 {
     public Guid Id { get; set; }
     public DateTime DateOfRegistration { get; set; }

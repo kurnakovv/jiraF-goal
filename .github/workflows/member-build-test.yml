@@ -1,4 +1,4 @@
-name: User microservice Build/Test
+name: Member microservice Build/Test
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
   filter-folder:
     runs-on: ubuntu-latest
     outputs:
-     is_folder_changed: ${{ steps.changes.outputs.user }}
+     is_folder_changed: ${{ steps.changes.outputs.member }}
     steps:
       - uses: actions/checkout@v3
       - name: Paths Changes Filter
@@ -23,8 +23,8 @@ jobs:
         id: changes
         with:
           filters: |
-            user:
-              - 'User/**'
+            member:
+              - 'Member/**'
   build:
     needs: [filter-folder]
     if: needs.filter-folder.outputs.is_folder_changed == 'true'
@@ -36,8 +36,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore User
+      run: dotnet restore Member
     - name: Build
-      run: dotnet build User --no-restore
+      run: dotnet build Member --no-restore
     - name: Test
-      run: dotnet test User --no-build --verbosity normal
+      run: dotnet test Member --no-build --verbosity normal

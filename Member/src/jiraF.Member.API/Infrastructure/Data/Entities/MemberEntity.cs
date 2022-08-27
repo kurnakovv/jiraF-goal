@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace jiraF.User.API.Infrastructure.Data.Entities;
+namespace jiraF.Member.API.Infrastructure.Data.Entities;
 
-[Table("user")]
-public class UserEntity
+[Table("member")]
+public class MemberEntity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Column("id_user")]
+    [Column("id_member")]
     public Guid Id { get; set; }
 
     [Column("m_date_of_registration")]

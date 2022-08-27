@@ -1,12 +1,12 @@
-# User
-Microservice with users logic.
+# Member
+Microservice with members logic.
 
 # How to setup db (not required)
 * Install [postgreSQL](https://www.postgresql.org/) 
-* Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/User/db.sql)
+* Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/Member/db.sql)
 * Configure connection string
 ``` ps
-dotnet user-secrets set "ConnectionString" "Server=localhost;Port=5432;Database=jiraf_memUsermber Id=postgres;Password=yourPassword;" --projectUsermber\src\jiUsermber.API\"
+dotnet user-secrets set "ConnectionString" "Server=localhost;Port=5432;Database=jiraf_member;User Id=postgres;Password=yourPassword;" --project ".\Member\src\jiraF.Member.API\"
 ```
 * Edit program file from
 ``` cs

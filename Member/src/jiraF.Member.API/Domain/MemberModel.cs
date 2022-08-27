@@ -1,18 +1,18 @@
-﻿namespace jiraF.User.API.Domain;
+﻿namespace jiraF.Member.API.Domain;
 
-public class UserModel
+public class MemberModel
 {
     public Guid Number { get; }
     public DateTime DateOfRegistration { get; }
     public string Name { get; }
 
-    public UserModel(
+    public MemberModel(
         string name)
     {
         Name = name;
     }
 
-    public UserModel(
+    public MemberModel(
         Guid number,
         DateTime dateOfCreate,
         string name)

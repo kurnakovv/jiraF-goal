@@ -1,4 +1,4 @@
-﻿using jiraF.User.API.Infrastructure.Data.Contexts;
+﻿using jiraF.Member.API.Infrastructure.Data.Contexts;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Net.Http;
@@ -8,7 +8,7 @@ using Xunit;
 using System.Threading.Tasks;
 using System.Net;
 
-namespace jiraF.User.EndToEndTests
+namespace jiraF.Member.EndToEndTests
 {
     public class PingTests
     {

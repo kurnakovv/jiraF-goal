@@ -1,4 +1,4 @@
-name: User codecov
+name: Member codecov
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
   filter-folder:
     runs-on: ubuntu-latest
     outputs:
-     is_folder_changed: ${{ steps.changes.outputs.user }}
+     is_folder_changed: ${{ steps.changes.outputs.member }}
     steps:
       - uses: actions/checkout@v3
       - name: Paths Changes Filter
@@ -22,8 +22,8 @@ jobs:
         id: changes
         with:
           filters: |
-            user:
-              - 'User/**'
+            member:
+              - 'Member/**'
   build:
     needs: [filter-folder]
     if: needs.filter-folder.outputs.is_folder_changed == 'true'
@@ -34,22 +34,22 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-      - name: Set UserApiKey
-        id: setuserapikey
+      - name: Set MemberApiKey
+        id: setmemberapikey
         shell: bash
         run: |
           if [ "$MEMBER_API_KEY" != "" ]; then
-            dotnet user-secrets setUsererApiKey" "$MEMBER_API_KEY" --projecUserer/src/jiraUserer.API/
+            dotnet user-secrets set "MemberApiKey" "$MEMBER_API_KEY" --project Member/src/jiraF.Member.API/
           else
-            dotnet user-secrets setUsererApiKey" "12345testApiKey" --projecUserer/src/jiraUserer.API/
+            dotnet user-secrets set "MemberApiKey" "12345testApiKey" --project Member/src/jiraF.Member.API/
           fi
         env:
           MEMBER_API_KEY: ${{ secrets.MEMBER_API_KEY }}
       - name: Restore dependencies
-        run: dotnet restore User
+        run: dotnet restore Member
       - name: Build
-        run: dotnet build User --no-restore
+        run: dotnet build Member --no-restore
       - name: Test
-        run: dotnet test User --no-build --verbosity normal --collect:"XPlat Code Coverage"
+        run: dotnet test Member --no-build --verbosity normal --collect:"XPlat Code Coverage"
       - name: Report Codecov
         uses: codecov/codecov-action@v3

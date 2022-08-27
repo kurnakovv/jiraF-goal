@@ -9,8 +9,8 @@ public class GoalModel
     public Guid Number { get; }
     public Title Title { get; }
     public Description Description { get;}
-    public Member Reporter { get; }
-    public Member Assignee { get; }
+    public User Reporter { get; }
+    public User Assignee { get; }
     public DateTime DateOfCreate { get; }
     public DateTime DateOfUpdate { get; }
     public LabelModel Label { get; private set; }
@@ -24,8 +24,8 @@ public class GoalModel
     {
         Title = title;
         Description = description;
-        Reporter = new Member(reporterNumber);
-        Assignee = new Member(assigneeNumber);
+        Reporter = new User(reporterNumber);
+        Assignee = new User(assigneeNumber);
         DateOfCreate = DateTime.UtcNow;
         DateOfUpdate = default(DateTime);
         Label = new LabelModel(new Title(labelTitle));
@@ -35,8 +35,8 @@ public class GoalModel
         Guid number,
         Title title,
         Description description,
-        Member reporter,
-        Member assignee,
+        User reporter,
+        User assignee,
         DateTime dateOfCreate,
         DateTime dateOfUpdate,
         LabelModel label)

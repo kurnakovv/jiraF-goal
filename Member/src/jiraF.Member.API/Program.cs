@@ -1,4 +1,4 @@
-using jiraF.User.API.Infrastructure.Data.Contexts;
+using jiraF.Member.API.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

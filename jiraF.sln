@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.UnitTests", "Goa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.IntegrationTests", "Goal\src\jiraF.Goal.IntegrationTests\jiraF.Goal.IntegrationTests.csproj", "{FF498438-4B0F-443B-8F48-D8DFF3DC2465}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{54A72318-833B-4579-B58E-9AFABAE4466B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Member", "Member", "{54A72318-833B-4579-B58E-9AFABAE4466B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9A76BC7F-2F81-4ECF-A572-9491DD551460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.User.API", "User\src\jiraF.User.API\jiraF.User.API.csproj", "{192E20CD-B703-4463-B828-B98AFBB8D2B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Member.API", "Member\src\jiraF.Member.API\jiraF.Member.API.csproj", "{192E20CD-B703-4463-B828-B98AFBB8D2B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.User.EndToEndTests", "User\src\jiraF.User.EndToEndTests\jiraF.User.EndToEndTests.csproj", "{CCFCB03F-82E6-4DB6-B045-18F8761F3259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Member.EndToEndTests", "Member\src\jiraF.Member.EndToEndTests\jiraF.Member.EndToEndTests.csproj", "{CCFCB03F-82E6-4DB6-B045-18F8761F3259}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

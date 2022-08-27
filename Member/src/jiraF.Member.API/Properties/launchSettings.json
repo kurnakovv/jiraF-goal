@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "jiraF.User.API": {
+    "jiraF.Member.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

@@ -1,6 +1,6 @@
 ﻿namespace jiraF.Goal.API.Dtos;
 
-public class MemberDto
+public class UserDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

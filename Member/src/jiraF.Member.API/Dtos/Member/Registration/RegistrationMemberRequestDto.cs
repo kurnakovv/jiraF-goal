@@ -1,6 +1,6 @@
-﻿namespace jiraF.User.API.Dtos.User.Registration;
+﻿namespace jiraF.Member.API.Dtos.Member.Registration;
 
-public class RegistrationUserRequestDto
+public class RegistrationMemberRequestDto
 {
     public string Name { get; set; }
 }
