@@ -36,7 +36,7 @@ public class GoalController : ControllerBase
         List<Guid> memberIds = new(); 
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
-        IEnumerable<UserDto> members = new List<UserDto>();
+        IEnumerable<MemberDto> members = new List<MemberDto>();
         using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.herokuapp.com") })
         {
             string jsonModel = JsonSerializer.Serialize(memberIds);
@@ -45,7 +45,7 @@ public class GoalController : ControllerBase
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                members = JsonSerializer.Deserialize<IEnumerable<UserDto>>(json, new JsonSerializerOptions
+                members = JsonSerializer.Deserialize<IEnumerable<MemberDto>>(json, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
@@ -61,8 +61,8 @@ public class GoalController : ControllerBase
                 g.Number,
                 g.Title,
                 g.Description,
-                r == null ? new User() : new User(r.Id, r.Name, r.Img),
-                a == null ? new User() : new User(a.Id, a.Name, a.Img),
+                r == null ? new Member() : new Member(r.Id, r.Name, r.Img),
+                a == null ? new Member() : new Member(a.Id, a.Name, a.Img),
                 g.DateOfCreate,
                 g.DateOfUpdate,
                 g.Label
@@ -121,13 +121,13 @@ public class GoalController : ControllerBase
         {
             Id = model.Number,
             Title = model.Title.Value,
-            Assigee = new UserDto
+            Assigee = new MemberDto
             {
                 Id = model.Assignee.Number,
                 Img = model.Assignee.Img,
                 Name = model.Assignee.Name,
             },
-            Reporter = new UserDto
+            Reporter = new MemberDto
             {
                 Id = model.Reporter.Number,
                 Name = model.Reporter.Name,

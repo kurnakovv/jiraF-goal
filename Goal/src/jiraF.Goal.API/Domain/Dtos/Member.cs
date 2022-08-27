@@ -1,19 +1,19 @@
 ﻿namespace jiraF.Goal.API.Domain.Dtos;
 
-public class User
+public class Member
 {
     public Guid Number { get; }
     public string Name { get; }
     public string Img { get; }
 
-    public User() { }
+    public Member() { }
 
-    public User(Guid number)
+    public Member(Guid number)
     {
         Number = number;
     }
 
-    public User(
+    public Member(
         Guid number,
         string name,
         string img)
