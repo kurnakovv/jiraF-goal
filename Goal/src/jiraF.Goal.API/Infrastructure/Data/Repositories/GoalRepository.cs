@@ -102,6 +102,6 @@ public class GoalRepository : IGoalRepository
         return await _dbContext.Labels
             .Where(x => x.Title == title)
             .Select(x => x.Id)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(); 
     }
 }

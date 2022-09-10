@@ -83,7 +83,7 @@ public class MemberController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Bun(Guid id)
     {
-        MemberEntity entity = await _dbContext.Members
+        MemberEntity entity = await _dbContext.Members 
             .Where(x => x.Id == id)
             .FirstOrDefaultAsync();
         _dbContext.Members.Remove(entity);
