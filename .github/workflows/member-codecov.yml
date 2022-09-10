@@ -53,3 +53,5 @@ jobs:
         run: dotnet test Member --no-build --verbosity normal --collect:"XPlat Code Coverage"
       - name: Report Codecov
         uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage2.xml
