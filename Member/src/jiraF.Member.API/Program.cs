@@ -1,4 +1,5 @@
 using jiraF.Member.API.Infrastructure.Data.Contexts;
+using jiraF.Member.API.Infrastructure.RabbitMQ;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<AppDbContext>();
+builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 
 var app = builder.Build();
 
