@@ -83,4 +83,4 @@ app.MapControllers();
 
 app.MapHealthChecks("/ping");
 
-app.Run(); 
+app.Run();
