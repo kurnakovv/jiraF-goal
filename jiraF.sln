@@ -1,35 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Goal", "Goal", "{AF2EA258-78D7-434C-9BEB-F31305941E89}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.API", "Goal\src\jiraf.Goal.API\jiraF.Goal.API.csproj", "{7CE48628-AAC2-479E-8853-94C342AF5571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jiraF.Goal.API", "Goal\src\jiraf.Goal.API\jiraF.Goal.API.csproj", "{7CE48628-AAC2-479E-8853-94C342AF5571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.EndToEndTests", "Goal\src\jiraf.Goal.EndToEndTests\jiraF.Goal.EndToEndTests.csproj", "{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jiraF.Goal.EndToEndTests", "Goal\src\jiraf.Goal.EndToEndTests\jiraF.Goal.EndToEndTests.csproj", "{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.UnitTests", "Goal\src\jiraf.Goal.UnitTests\jiraF.Goal.UnitTests.csproj", "{227807DE-EA5E-4EF6-8393-3A9C7E87729D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jiraF.Goal.UnitTests", "Goal\src\jiraf.Goal.UnitTests\jiraF.Goal.UnitTests.csproj", "{227807DE-EA5E-4EF6-8393-3A9C7E87729D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Goal.IntegrationTests", "Goal\src\jiraF.Goal.IntegrationTests\jiraF.Goal.IntegrationTests.csproj", "{FF498438-4B0F-443B-8F48-D8DFF3DC2465}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Member", "Member", "{54A72318-833B-4579-B58E-9AFABAE4466B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9A76BC7F-2F81-4ECF-A572-9491DD551460}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Member.API", "Member\src\jiraF.Member.API\jiraF.Member.API.csproj", "{192E20CD-B703-4463-B828-B98AFBB8D2B3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jiraF.Member.EndToEndTests", "Member\src\jiraF.Member.EndToEndTests\jiraF.Member.EndToEndTests.csproj", "{CCFCB03F-82E6-4DB6-B045-18F8761F3259}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jiraF.Goal.IntegrationTests", "Goal\src\jiraF.Goal.IntegrationTests\jiraF.Goal.IntegrationTests.csproj", "{FF498438-4B0F-443B-8F48-D8DFF3DC2465}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7CE48628-AAC2-479E-8853-94C342AF5571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -48,14 +37,9 @@ Global
 		{FF498438-4B0F-443B-8F48-D8DFF3DC2465}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF498438-4B0F-443B-8F48-D8DFF3DC2465}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF498438-4B0F-443B-8F48-D8DFF3DC2465}.Release|Any CPU.Build.0 = Release|Any CPU
-		{192E20CD-B703-4463-B828-B98AFBB8D2B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{192E20CD-B703-4463-B828-B98AFBB8D2B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{192E20CD-B703-4463-B828-B98AFBB8D2B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{192E20CD-B703-4463-B828-B98AFBB8D2B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CCFCB03F-82E6-4DB6-B045-18F8761F3259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCFCB03F-82E6-4DB6-B045-18F8761F3259}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCFCB03F-82E6-4DB6-B045-18F8761F3259}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCFCB03F-82E6-4DB6-B045-18F8761F3259}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257} = {AF2EA258-78D7-434C-9BEB-F31305941E89}
@@ -63,8 +47,8 @@ Global
 		{CDD60433-DE3E-4A16-B1BD-C1EF07157EAD} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
 		{227807DE-EA5E-4EF6-8393-3A9C7E87729D} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
 		{FF498438-4B0F-443B-8F48-D8DFF3DC2465} = {6AEA0D2D-123F-4F88-ABEE-7BDDE90AD257}
-		{9A76BC7F-2F81-4ECF-A572-9491DD551460} = {54A72318-833B-4579-B58E-9AFABAE4466B}
-		{192E20CD-B703-4463-B828-B98AFBB8D2B3} = {9A76BC7F-2F81-4ECF-A572-9491DD551460}
-		{CCFCB03F-82E6-4DB6-B045-18F8761F3259} = {9A76BC7F-2F81-4ECF-A572-9491DD551460}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0EE019E-8EF1-437B-9BC6-DD28EFB9A18F}
 	EndGlobalSection
 EndGlobal
