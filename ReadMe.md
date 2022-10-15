@@ -1,37 +1,43 @@
-<div align="center">
- <img src="docs/img/jiraF-icon.png" weight="100px" height="200px" />
- <h2>jiraF</h2>
+# Goal
+Microservice with goals logic.
 
-![Visitors](http://estruyf-github.azurewebsites.net/api/VisitorHit?user=KurnakovMaksim&repo=jiraF&countColor=%237B1E7A&style=flat)
- [![](https://tokei.rs/b1/github/KurnakovMaksim/jiraF)](https://github.com/KurnakovMaksim/jiraF)
-[![Help Wanted](https://img.shields.io/github/issues/KurnakovMaksim/jiraF/help%20wanted?color=green)](https://github.com/KurnakovMaksim/jiraF/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+# How to start
+* Setup ApiKey
+``` ps
+dotnet user-secrets set "GoalApiKey" "yourApiKey" --project ".\Goal\src\jiraF.Goal.API\"
+```
+* Start project
+``` ps
+dotnet run --property:Configuration=Release --project .\Goal\src\jiraF.Goal.API\
+```
+Project reference
+https://localhost:7079/swagger/index.html
 
-</div>
-
-# Description
-<b>jiraF</b> - is a task manager e-commerce application based on microservices approach
-
-# Pipeline
-
-| Mircroservice 	    | Docs | Build/Test |  SonarCloud | CodeQL | Codecov |
-|------------------ | ------------ | -------------------------------------- | ---------------------------- | ----- | ----- |
-| jiraF.Goal | [Docs](https://github.com/KurnakovMaksim/jiraF/blob/main/Goal/ReadMe.md)  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/goal-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=coverage)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) | [![CodeQL](https://github.com/KurnakovMaksim/jiraF/workflows/CodeQL/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions?query=workflow%3ACodeQL) | [![Codecov](https://codecov.io/gh/KurnakovMaksim/jiraF/branch/main/graph/badge.svg)](https://codecov.io/gh/KurnakovMaksim/jiraF)
-| jiraF.Member | [Docs](https://github.com/KurnakovMaksim/jiraF/blob/main/Member/ReadMe.md)  | [![Build/Test](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/member-build-test.yml) | [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=coverage)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF) | [![CodeQL](https://github.com/KurnakovMaksim/jiraF/workflows/CodeQL/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions?query=workflow%3ACodeQL) | [![Codecov](https://codecov.io/gh/KurnakovMaksim/jiraF/branch/main/graph/badge.svg)](https://codecov.io/gh/KurnakovMaksim/jiraF) |
-
-| Client | Production reference | NodeJs |
-| ------ | -------------------- | ---------- |
-| jiraF.client SPA | https://kurnakovmaksim.github.io/jiraF/ | [![Node.js CI](https://github.com/KurnakovMaksim/jiraF/actions/workflows/client-node-js.yml/badge.svg)](https://github.com/KurnakovMaksim/jiraF/actions/workflows/client-node-js.yml) |
- 
-
-# Reason
-<code><a href="#ArchitectureForContainerizedDotNetApplications" ><img src="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/media/cover-large.png" title=".NET Microservices: Architecture for Containerized .NET Applications" width="150" /></a></code><br>
-I have been reading this book, and I want to try microservice approach in practice
-
-# Contribution
-[Contribution instruction](https://github.com/KurnakovMaksim/jiraF/blob/main/CONTRIBUTION.md)
-
-<a href="https://github.com/KurnakovMaksim/jiraF/graphs/contributors">
-  
-  ![GitHub Contributors Image](https://contrib.rocks/image?repo=KurnakovMaksim/jiraF)
-  
-</a>
+# How to setup db (not required)
+* Install [postgreSQL](https://www.postgresql.org/) 
+* Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/Goal/db.sql)
+* Configure connection string
+``` ps
+dotnet user-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database=jiraf_goal;User Id=postgres;Password=yourPassword;" --project ".\Goal\src\jiraF.Goal.API\"
+```
+* Edit program file from
+``` cs
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+#else
+    options.UseInMemoryDatabase("TestData");
+    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+#endif
+});
+```
+to
+``` cs
+#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+#else
+    //options.UseInMemoryDatabase("TestData");
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+#endif
+```
