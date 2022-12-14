@@ -1,3 +1,4 @@
+[![Main repo](https://img.shields.io/static/v1?label=&message=MainRepo&color=orange)](https://github.com/KurnakovMaksim/jiraF/) 
 [![Hits-of-Code](https://hitsofcode.com/github/KurnakovMaksim/jiraF-goal?branch=main)](https://hitsofcode.com/github/KurnakovMaksim/jiraF-goal/view?branch=main)
 # Goal
 Microservice with goals logic.
