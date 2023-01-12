@@ -7,7 +7,7 @@ public class ValueObjectException : Exception
 {
     public ValueObjectException(string message): base(message) { }
 
-    protected ValueObjectException(SerializationInfo info, StreamingContext context) { }
+    protected ValueObjectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 
     public override void GetObjectData(SerializationInfo info, StreamingContext context)
     {
