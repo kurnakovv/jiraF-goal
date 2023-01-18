@@ -1,4 +1,5 @@
-﻿using jiraF.Goal.API.Infrastructure.Data.Contexts;
+﻿using jiraF.Goal.API.GlobalVariables;
+using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Secrets;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -11,12 +12,13 @@ using Xunit;
 
 namespace jiraF.Goal.EndToEndTests
 {
-    public class PingTests
+    public class PingTests : IDisposable
     {
         private readonly HttpClient _client;
 
         public PingTests()
         {
+            TestVariables.IsWorkNow = true;
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -31,6 +33,11 @@ namespace jiraF.Goal.EndToEndTests
 
             _client = application.CreateClient();
             _client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
+        }
+
+        public void Dispose()
+        {
+            TestVariables.IsWorkNow = false;
         }
 
         [Theory]

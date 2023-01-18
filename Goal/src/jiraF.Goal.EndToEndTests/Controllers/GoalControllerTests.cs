@@ -1,5 +1,6 @@
 ﻿using jiraF.Goal.API.Dtos.Goal.Add;
 using jiraF.Goal.API.Dtos.Goal.Update;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Secrets;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -15,12 +16,13 @@ using Xunit;
 
 namespace jiraF.Goal.EndToEndTests.Controllers
 {
-    public class GoalControllerTests
+    public class GoalControllerTests : IDisposable
     {
         private readonly HttpClient _client;
 
         public GoalControllerTests()
         {
+            TestVariables.IsWorkNow = true;
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -35,6 +37,11 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
             _client = application.CreateClient();
             _client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
+        }
+
+        public void Dispose()
+        {
+            TestVariables.IsWorkNow = false;
         }
 
         [Theory]

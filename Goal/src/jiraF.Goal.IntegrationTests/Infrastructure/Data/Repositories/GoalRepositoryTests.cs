@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Domain.Dtos;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
@@ -22,6 +23,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
         private GoalEntity _entity = new() { Id = _entityId, Title = "Test title", Description = "Test desc" };
         public GoalRepositoryTests()
         {
+            TestVariables.IsWorkNow = true;
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
@@ -40,6 +42,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
         {
             _dbContext.Database.EnsureDeleted();
             _dbContext.DisposeAsync();
+            TestVariables.IsWorkNow = false;
         }
 
         [Fact]
