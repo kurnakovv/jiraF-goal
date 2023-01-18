@@ -38,6 +38,7 @@ namespace jiraF.Goal.EndToEndTests
         public void Dispose()
         {
             TestVariables.IsWorkNow = false;
+            GC.SuppressFinalize(this);
         }
 
         [Theory]

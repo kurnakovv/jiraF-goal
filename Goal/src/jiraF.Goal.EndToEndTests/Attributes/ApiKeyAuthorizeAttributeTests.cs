@@ -38,6 +38,7 @@ public class ApiKeyAuthorizeAttributeTests : IDisposable
     public void Dispose()
     {
         TestVariables.IsWorkNow = false;
+        GC.SuppressFinalize(this);
     }
 
     [Fact]

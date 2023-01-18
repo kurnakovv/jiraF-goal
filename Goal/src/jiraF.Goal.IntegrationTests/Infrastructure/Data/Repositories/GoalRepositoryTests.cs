@@ -43,6 +43,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             _dbContext.Database.EnsureDeleted();
             _dbContext.DisposeAsync();
             TestVariables.IsWorkNow = false;
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
