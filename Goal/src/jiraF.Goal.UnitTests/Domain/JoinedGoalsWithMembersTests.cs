@@ -49,7 +49,7 @@ namespace jiraF.Goal.UnitTests.Domain
         [Fact]
         public void Join_CanJoinGoalsWithMembers_JoinedGoalsWithMembers()
         {
-            JoinedGoalsWithMembers joinedGoalsWithMembers = new JoinedGoalsWithMembers(_goals, _members);
+            JoinedGoalsWithMembers joinedGoalsWithMembers = new(_goals, _members);
             joinedGoalsWithMembers.Join();
             Assert.Equal(2, joinedGoalsWithMembers.Goals
                 .Where(x => 
