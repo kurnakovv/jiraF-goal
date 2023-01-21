@@ -52,7 +52,7 @@ public class GoalController : ControllerBase
             }
         }
         JoinedGoalsWithMembers joinedGoalsWithMembers = new(goals, members.Select(x => new Member(x.Id, x.Name, x.Img)));
-        joinedGoalsWithMembers.Join();
+        joinedGoalsWithMembers.Join(); 
         IEnumerable<GoalDto> dtos = joinedGoalsWithMembers.Goals.Select(x => Convert(x));
         return new GetGoalsResponseDto() { Goals = dtos };
     }
