@@ -37,7 +37,7 @@ public class GoalController : ControllerBase
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
         IEnumerable<MemberDto> members = new List<MemberDto>();
-        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.herokuapp.com") })
+        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
         {
             string jsonModel = JsonSerializer.Serialize(memberIds);
             var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
