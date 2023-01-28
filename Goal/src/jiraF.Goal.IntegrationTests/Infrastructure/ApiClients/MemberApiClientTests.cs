@@ -27,4 +27,13 @@ public class MemberApiClientTests
         );
         Assert.Null(exception);
     }
+
+    [Fact]
+    public async Task GetAsync_GetMembersById_MemberDto()
+    {
+        Exception exception = await Record.ExceptionAsync(async () =>
+            await _memberApiClient.GetAsync(new Guid("2f857708-6e97-413b-b495-f2161135616a"))
+        );
+        Assert.Null(exception);
+    }
 }

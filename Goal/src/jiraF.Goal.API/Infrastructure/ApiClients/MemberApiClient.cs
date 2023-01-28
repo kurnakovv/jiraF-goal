@@ -13,6 +13,22 @@ public class MemberApiClient
         _client = client;
     }
 
+    public async Task<MemberDto> GetAsync(Guid id)
+    {
+        string jsonModel = JsonSerializer.Serialize(id);
+        var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+        HttpResponseMessage response = await _client.PostAsync("/Member/Get", stringContent);
+        if (!response.IsSuccessStatusCode)
+        {
+            return new MemberDto();
+        }
+        string json = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<MemberDto>(json, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
+    }
+
     public async Task<IEnumerable<MemberDto>> GetAsync(List<Guid> ids)
     {
         string jsonModel = JsonSerializer.Serialize(ids);
