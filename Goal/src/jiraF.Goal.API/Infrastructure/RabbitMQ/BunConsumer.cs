@@ -49,9 +49,8 @@ public class BunConsumer : BackgroundService
                     x.ReporterId == memberId ||
                     x.AssigneeId == memberId)
                 .ToList();
-            // TODO: Wait nullable ReporterId and AssigneeId.
-            //goals.Where(x => x.ReporterId == memberId).ToList().ForEach(x => x.ReporterId = null);
-            //goals.Where(x => x.AssigneeId == memberId).ToList().ForEach(x => x.AssigneeId = null);
+            goals.Where(x => x.ReporterId == memberId).ToList().ForEach(x => x.ReporterId = null);
+            goals.Where(x => x.AssigneeId == memberId).ToList().ForEach(x => x.AssigneeId = null);
             _channel.BasicAck(eventArguments.DeliveryTag, false);
         };
         _channel.BasicConsume("MemberQueue", false, consumer);
