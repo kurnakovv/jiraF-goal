@@ -46,8 +46,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new Member(),
-                new Member(),
+                new Member(x.ReporterId ?? Guid.Empty),
+                new Member(x.AssigneeId ?? Guid.Empty),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
