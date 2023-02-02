@@ -110,11 +110,52 @@ public class GoalController : ControllerBase
     [HttpPost]
     public async Task<AddGoalResponseDto> Add(AddGoalRequestDto requestDto)
     {
+        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
+        {
+            if (requestDto.ReporterId != null)
+            {
+                string jsonModel = JsonSerializer.Serialize(requestDto.ReporterId);
+                var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("/Member/IsExists", stringContent);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Error in member API client, status code: {response.StatusCode}");
+                }
+                string json = await response.Content.ReadAsStringAsync();
+                bool isExist = JsonSerializer.Deserialize<bool>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if (!isExist)
+                {
+                    throw new Exception($"Reporter by id: '{requestDto.ReporterId}' does not exists");
+                }
+            }
+            if (requestDto.AssigneeId != null)
+            {
+                string jsonModel = JsonSerializer.Serialize(requestDto.ReporterId);
+                var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("/Member/IsExists", stringContent);
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception($"Error in member API client, status code: {response.StatusCode}");
+                }
+                string json = await response.Content.ReadAsStringAsync();
+                bool isExist = JsonSerializer.Deserialize<bool>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if (!isExist)
+                {
+                    throw new Exception($"Assignee by id: '{requestDto.ReporterId}' does not exists");
+                }
+            }
+        }
         GoalModel goal = new(
             new Title(requestDto.Title),
             new Description(requestDto.Description),
-            requestDto.ReporterId,
-            requestDto.AssigneeId,
+            requestDto.ReporterId ?? Guid.Empty,
+            requestDto.AssigneeId ?? Guid.Empty,
             requestDto.LabelTitle);
 
         Guid goalNumber = await _goalRepository.AddAsync(goal);

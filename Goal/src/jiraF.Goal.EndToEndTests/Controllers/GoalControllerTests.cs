@@ -56,8 +56,6 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             {
                 Title = "Test value",
                 Description = "Test value",
-                AssigneeId = System.Guid.Empty,
-                ReporterId = System.Guid.Empty,
                 LabelTitle = "Test value" 
             };
 
