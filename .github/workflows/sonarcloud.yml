@@ -1,4 +1,4 @@
-name: Goal microservice SonarCloud
+name: SonarCloud
 on:
   push:
     paths:
