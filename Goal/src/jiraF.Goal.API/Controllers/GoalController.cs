@@ -114,9 +114,7 @@ public class GoalController : ControllerBase
         {
             if (requestDto.ReporterId != null)
             {
-                string jsonModel = JsonSerializer.Serialize(requestDto.ReporterId);
-                var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("/Member/IsExists", stringContent);
+                HttpResponseMessage response = await client.GetAsync($"/Member/IsExists/{requestDto.ReporterId}");
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error in member API client, status code: {response.StatusCode}");
@@ -128,14 +126,12 @@ public class GoalController : ControllerBase
                 });
                 if (!isExist)
                 {
-                    throw new Exception($"Reporter by id: '{requestDto.ReporterId}' does not exists");
+                    throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
                 }
             }
             if (requestDto.AssigneeId != null)
             {
-                string jsonModel = JsonSerializer.Serialize(requestDto.ReporterId);
-                var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("/Member/IsExists", stringContent);
+                HttpResponseMessage response = await client.GetAsync($"/Member/IsExists/{requestDto.AssigneeId}");
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"Error in member API client, status code: {response.StatusCode}");
@@ -147,7 +143,7 @@ public class GoalController : ControllerBase
                 });
                 if (!isExist)
                 {
-                    throw new Exception($"Assignee by id: '{requestDto.ReporterId}' does not exists");
+                    throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
                 }
             }
         }
