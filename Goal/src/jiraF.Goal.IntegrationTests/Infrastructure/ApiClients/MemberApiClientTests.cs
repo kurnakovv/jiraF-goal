@@ -20,7 +20,7 @@ public class MemberApiClientTests
     }
 
     [Fact]
-    public async Task GetAsync_GetMembersByIds_MemberDtos()
+    public async Task GetAsync_GetMembersByIds_PassWithoutException()
     {
         Exception exception = await Record.ExceptionAsync(async () => 
             await _memberApiClient.GetAsync(new List<Guid> { new Guid("2f857708-6e97-413b-b495-f2161135616a") })
@@ -29,10 +29,19 @@ public class MemberApiClientTests
     }
 
     [Fact]
-    public async Task GetAsync_GetMembersById_MemberDto()
+    public async Task GetAsync_GetMembersById_PassWithoutException()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
             await _memberApiClient.GetAsync(new Guid("2f857708-6e97-413b-b495-f2161135616a"))
+        );
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task IsExistsAsync_MemberIsExists_PassWithoutException()
+    {
+        Exception exception = await Record.ExceptionAsync(async () =>
+            await _memberApiClient.IsExistsAsync(new Guid("2f857708-6e97-413b-b495-f2161135616a"))
         );
         Assert.Null(exception);
     }
