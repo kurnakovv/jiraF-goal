@@ -44,4 +44,19 @@ public class MemberApiClient
             PropertyNameCaseInsensitive = true
         });
     }
+
+    public async Task<bool> IsExistsAsync(Guid id)
+    {
+        HttpResponseMessage response = await _client.GetAsync($"/Member/IsExists/{id}");
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error in member API client, status code: {response.StatusCode}");
+        }
+        string json = await response.Content.ReadAsStringAsync();
+        bool isExist = JsonSerializer.Deserialize<bool>(json, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        });
+        return isExist;
+    }
 }
