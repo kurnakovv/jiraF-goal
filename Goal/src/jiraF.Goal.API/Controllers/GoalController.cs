@@ -38,11 +38,11 @@ public class GoalController : ControllerBase
     public async Task<GetGoalsResponseDto> Get()
     {
         IEnumerable<GoalModel> goals = await _goalRepository.GetAsync();
-        List<Guid> memberIds = new(); 
+        List<Guid> memberIds = new();
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
         IEnumerable<MemberDto> members = await _memberApiClient.GetAsync(memberIds);
-        IEnumerable<GoalModel> goalsWithMembers = 
+        IEnumerable<GoalModel> goalsWithMembers =
             from g in goals
             join m in members on g.Reporter.Number equals m.Id into reporters
             join m in members on g.Assignee.Number equals m.Id into assignees
@@ -101,41 +101,20 @@ public class GoalController : ControllerBase
     [HttpPost]
     public async Task<AddGoalResponseDto> Add(AddGoalRequestDto requestDto)
     {
-        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
+        if (requestDto.ReporterId != null)
         {
-            if (requestDto.ReporterId != null)
+            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value);
+            if (!isExist)
             {
-                HttpResponseMessage response = await client.GetAsync($"/Member/IsExists/{requestDto.ReporterId}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new Exception($"Error in member API client, status code: {response.StatusCode}");
-                }
-                string json = await response.Content.ReadAsStringAsync();
-                bool isExist = JsonSerializer.Deserialize<bool>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-                if (!isExist)
-                {
-                    throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
-                }
+                throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
             }
-            if (requestDto.AssigneeId != null)
+        }
+        if (requestDto.AssigneeId != null)
+        {
+            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value);
+            if (!isExist)
             {
-                HttpResponseMessage response = await client.GetAsync($"/Member/IsExists/{requestDto.AssigneeId}");
-                if (!response.IsSuccessStatusCode)
-                {
-                    throw new Exception($"Error in member API client, status code: {response.StatusCode}");
-                }
-                string json = await response.Content.ReadAsStringAsync();
-                bool isExist = JsonSerializer.Deserialize<bool>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-                if (!isExist)
-                {
-                    throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
-                }
+                throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
             }
         }
         GoalModel goal = new(
