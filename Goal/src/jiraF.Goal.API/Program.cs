@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase(Guid.NewGuid().ToString());
 #else
     options.UseInMemoryDatabase("TestData");
-    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseNpgsql(builder.Configuration["ConnectionString"] ?? Environment.GetEnvironmentVariable("ConnectionString"));
 #endif
 });
 
