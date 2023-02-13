@@ -115,6 +115,14 @@ public class GoalController : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update(UpdateGoalRequestDto requestDto)
     {
+        if (!await _memberApiClient.IsExistsAsync(requestDto.ReporterId))
+        {
+            throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
+        }
+        if (!await _memberApiClient.IsExistsAsync(requestDto.AssigneeId))
+        {
+            throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
+        }
         GoalModel goal = new(
             new Title(requestDto.Title),
             new Description(requestDto.Description),
