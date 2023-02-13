@@ -111,7 +111,7 @@ public class GoalController : ControllerBase
         }
         if (requestDto.AssigneeId != null)
         {
-            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value);
+            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.AssigneeId.Value);
             if (!isExist)
             {
                 throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
