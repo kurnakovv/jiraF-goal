@@ -101,21 +101,13 @@ public class GoalController : ControllerBase
     [HttpPost]
     public async Task<AddGoalResponseDto> Add(AddGoalRequestDto requestDto)
     {
-        if (requestDto.ReporterId != null)
+        if (requestDto.ReporterId != null && !await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value))
         {
-            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value);
-            if (!isExist)
-            {
-                throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
-            }
+            throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
         }
-        if (requestDto.AssigneeId != null)
+        if (requestDto.AssigneeId != null && !await _memberApiClient.IsExistsAsync(requestDto.AssigneeId.Value))
         {
-            bool isExist = await _memberApiClient.IsExistsAsync(requestDto.AssigneeId.Value);
-            if (!isExist)
-            {
-                throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
-            }
+            throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
         }
         GoalModel goal = new(
             new Title(requestDto.Title),
