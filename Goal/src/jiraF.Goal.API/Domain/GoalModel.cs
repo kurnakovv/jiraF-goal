@@ -54,12 +54,10 @@ public class GoalModel
 
     public void EditLabel(IEnumerable<LabelModel> availableLabels, string label)
     {
-        bool containsLabel = availableLabels
-            .Where(x => x.Title.Value == label).Any();
-
-        if (!containsLabel)
+        if (!availableLabels.Any(x => x.Title.Value == label))
+        {
             throw new DomainException($"Not contains label: '{label}'.");
-
+        }
         Label = new LabelModel(new Title(label));
     }
 }
