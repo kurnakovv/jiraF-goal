@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase(TestVariables.IsWorkNow
         ? Guid.NewGuid().ToString()
         : "TestData");
-    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseNpgsql(builder.Configuration["ConnectionString"] ?? Environment.GetEnvironmentVariable("ConnectionString"));
 });
 
 builder.Services.AddCors(options =>
@@ -62,6 +62,11 @@ builder.Services.AddTransient<ILabelRepository, LabelRepository>();
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<AppDbContext>();
+
+builder.Services.AddHttpClient(builder.Configuration.GetValue<string>("ApiClients:MemberApiClient"), client =>
+{
+    client.BaseAddress = new Uri("https://jiraf-member.onrender.com/");
+});
 
 var app = builder.Build();
 
