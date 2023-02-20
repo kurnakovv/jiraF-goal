@@ -26,20 +26,19 @@ dotnet user-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database
 ``` cs
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-#else
-    options.UseInMemoryDatabase("TestData");
+    options.UseInMemoryDatabase(TestVariables.IsWorkNow
+        ? Guid.NewGuid().ToString()
+        : "TestData");
     //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-#endif
 });
 ```
 to
 ``` cs
-#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-#else
-    //options.UseInMemoryDatabase("TestData");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    // options.UseInMemoryDatabase(TestVariables.IsWorkNow
+    //     ? Guid.NewGuid().ToString()
+    //     : "TestData");
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-#endif
+});
 ```
