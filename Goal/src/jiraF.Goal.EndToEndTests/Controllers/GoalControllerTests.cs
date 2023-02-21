@@ -64,8 +64,8 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             {
                 Title = "Test value",
                 Description = "Test value",
-                AssigneeId = System.Guid.Empty,
-                ReporterId = System.Guid.Empty,
+                AssigneeId = new Guid(DefaultMemberVariables.Id),
+                ReporterId = new Guid(DefaultMemberVariables.Id),
                 LabelTitle = "Test value" 
             };
 
@@ -85,8 +85,8 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 Id = new System.Guid("a27723d9-fd4c-4b83-add8-f1c9152585ea"),
                 Title = "Test value",
                 Description = "Test value",
-                AssigneeId = System.Guid.Empty,
-                ReporterId = System.Guid.Empty,
+                AssigneeId = new Guid(DefaultMemberVariables.Id),
+                ReporterId = new Guid(DefaultMemberVariables.Id),
                 LabelTitle = "Test value"
             };
 

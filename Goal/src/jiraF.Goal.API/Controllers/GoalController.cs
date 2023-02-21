@@ -9,6 +9,7 @@ using jiraF.Goal.API.Dtos.Goal.Get;
 using jiraF.Goal.API.Dtos.Goal.GetById;
 using jiraF.Goal.API.Dtos.Goal.Update;
 using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.ApiClients;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
@@ -52,8 +53,8 @@ public class GoalController : ControllerBase
                 g.Number,
                 g.Title,
                 g.Description,
-                r == null ? new Member() : new Member(r.Id, r.Name, r.Img),
-                a == null ? new Member() : new Member(a.Id, a.Name, a.Img),
+                r == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(r.Id, r.Name, r.Img),
+                a == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(a.Id, a.Name, a.Img),
                 g.DateOfCreate,
                 g.DateOfUpdate,
                 g.Label
