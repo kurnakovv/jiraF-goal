@@ -40,11 +40,26 @@ public class MemberApiClientTests
     }
 
     [Fact]
-    public async Task IsExistsAsync_MemberIsExists_PassWithoutException()
+    public async Task IsExistsAsync_DefaultMemberIsExists_PassWithoutException()
     {
         Exception exception = await Record.ExceptionAsync(async () =>
             await _memberApiClient.IsExistsAsync(new Guid(DefaultMemberVariables.Id))
         );
         Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task IsExistsAsync_DefaultMemberIsExists_True()
+    {
+        bool isExists = await _memberApiClient.IsExistsAsync(new Guid(DefaultMemberVariables.Id));
+        Assert.True(isExists);
+    }
+
+    [Fact]
+    public async Task IsExistsAsync_MemberIsNotExistsByInvalidId_False()
+    {
+        Guid invalidId = new("53c5d4ea-73a4-4f41-8635-5a54f45b2e14");
+        bool isExists = await _memberApiClient.IsExistsAsync(invalidId);
+        Assert.False(isExists);
     }
 }
