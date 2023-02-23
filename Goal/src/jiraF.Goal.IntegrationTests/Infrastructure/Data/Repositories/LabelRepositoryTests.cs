@@ -24,6 +24,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
         public LabelRepositoryTests()
         {
             TestVariables.IsWorkNow = true;
+            DefaultMemberVariables.Id = "94ff67f3-294b-43f1-88ce-b815e80ff278";
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;

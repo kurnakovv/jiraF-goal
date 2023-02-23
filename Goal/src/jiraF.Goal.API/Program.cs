@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 ApiKey.Value = builder.Configuration["GoalApiKey"] ?? Environment.GetEnvironmentVariable("GoalApiKey");
+DefaultMemberVariables.Id = builder.Configuration.GetValue<string>("DefaultMemberId");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {

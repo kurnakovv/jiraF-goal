@@ -6,8 +6,6 @@ public class Member
     public string Name { get; }
     public string Img { get; }
 
-    public Member() { }
-
     public Member(Guid number)
     {
         Number = number;
