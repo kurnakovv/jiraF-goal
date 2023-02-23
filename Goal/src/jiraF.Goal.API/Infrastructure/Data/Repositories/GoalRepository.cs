@@ -26,8 +26,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new Member(x.ReporterId ?? new Guid(DefaultMemberVariables.Id)),
-                new Member(x.AssigneeId ?? new Guid(DefaultMemberVariables.Id)),
+                new Member(x.ReporterId),
+                new Member(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
@@ -47,8 +47,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new Member(x.ReporterId ?? new Guid(DefaultMemberVariables.Id)),
-                new Member(x.AssigneeId ?? new Guid(DefaultMemberVariables.Id)),
+                new Member(x.ReporterId),
+                new Member(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
