@@ -16,10 +16,13 @@ DefaultMemberVariables.Id = builder.Configuration.GetValue<string>("DefaultMembe
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
+#if DEBUG
     options.UseInMemoryDatabase(TestVariables.IsWorkNow
         ? Guid.NewGuid().ToString()
         : "TestData");
-    //options.UseNpgsql(builder.Configuration["ConnectionString"] ?? Environment.GetEnvironmentVariable("ConnectionString"));
+#else
+    options.UseNpgsql(builder.Configuration["ConnectionString"] ?? Environment.GetEnvironmentVariable("ConnectionString"));
+#endif
 });
 
 builder.Services.AddCors(options =>
