@@ -67,22 +67,8 @@ public class GoalController : ControllerBase
     public async Task<GetGoalByIdResponseDto> Get(Guid id)
     {
         GoalModel goal = await _goalRepository.GetByIdAsync(id);
-        IEnumerable<Guid> reporterAndAssigneeIds = new List<Guid>() { goal.Reporter.Number, goal.Assignee.Number };
-        IEnumerable<MemberDto> reporterAndAssigneeDtos = new List<MemberDto>();
-        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
-        {
-            string jsonModel = JsonSerializer.Serialize(reporterAndAssigneeIds);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("/Member/GetByIds", stringContent);
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                reporterAndAssigneeDtos = JsonSerializer.Deserialize<IEnumerable<MemberDto>>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-            }
-        }
+        List<Guid> reporterAndAssigneeIds = new() { goal.Reporter.Number, goal.Assignee.Number };
+        IEnumerable<MemberDto> reporterAndAssigneeDtos = await _memberApiClient.GetAsync(reporterAndAssigneeIds);
         IEnumerable<Member> reporterAndAssignee = reporterAndAssigneeDtos.Select(x => new Member(x.Id, x.Name, x.Img));
         goal = new GoalModel(
             goal.Number,
