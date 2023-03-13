@@ -70,7 +70,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PostAsync("/Goal", stringContent);
 
@@ -91,7 +91,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PutAsync("/Goal", stringContent);
 
