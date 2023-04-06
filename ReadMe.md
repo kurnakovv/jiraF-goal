@@ -17,7 +17,7 @@ https://localhost:7079/swagger/index.html
 
 # How to setup db (not required)
 * Install [postgreSQL](https://www.postgresql.org/) 
-* Use this [script](https://github.com/KurnakovMaksim/jiraF/blob/main/Goal/db.sql)
+* Use this [script](./Goal/db.sql)
 * Configure connection string
 ``` ps
 dotnet user-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database=jiraf_goal;User Id=postgres;Password=yourPassword;" --project ".\Goal\src\jiraF.Goal.API\"
@@ -26,20 +26,19 @@ dotnet user-secrets set "DefaultConnection" "Server=localhost;Port=5432;Database
 ``` cs
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-#else
-    options.UseInMemoryDatabase("TestData");
+    options.UseInMemoryDatabase(TestVariables.IsWorkNow
+        ? Guid.NewGuid().ToString()
+        : "TestData");
     //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-#endif
 });
 ```
 to
 ``` cs
-#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
-#else
-    //options.UseInMemoryDatabase("TestData");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    // options.UseInMemoryDatabase(TestVariables.IsWorkNow
+    //     ? Guid.NewGuid().ToString()
+    //     : "TestData");
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-#endif
+});
 ```

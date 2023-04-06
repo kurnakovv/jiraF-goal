@@ -9,6 +9,8 @@ using jiraF.Goal.API.Dtos.Goal.Get;
 using jiraF.Goal.API.Dtos.Goal.GetById;
 using jiraF.Goal.API.Dtos.Goal.Update;
 using jiraF.Goal.API.Dtos.Label;
+using jiraF.Goal.API.GlobalVariables;
+using jiraF.Goal.API.Infrastructure.ApiClients;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -22,11 +24,15 @@ namespace jiraF.Goal.API.Controllers;
 public class GoalController : ControllerBase
 {
     private readonly IGoalRepository _goalRepository;
+    private readonly MemberApiClient _memberApiClient;
 
     public GoalController(
-        IGoalRepository goalRepository)
+        IGoalRepository goalRepository,
+        IHttpClientFactory httpClientFactory,
+        IConfiguration configuration)
     {
         _goalRepository = goalRepository;
+        _memberApiClient = new MemberApiClient(httpClientFactory.CreateClient(configuration.GetValue<string>("ApiClients:MemberApiClient")));
     }
 
     [HttpGet]
@@ -36,21 +42,7 @@ public class GoalController : ControllerBase
         List<Guid> memberIds = new(); 
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
-        IEnumerable<MemberDto> members = new List<MemberDto>();
-        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
-        {
-            string jsonModel = JsonSerializer.Serialize(memberIds);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("/Member/GetByIds", stringContent);
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                members = JsonSerializer.Deserialize<IEnumerable<MemberDto>>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-            }
-        }
+        IEnumerable<MemberDto> members = await _memberApiClient.GetAsync(memberIds);
         IEnumerable<GoalModel> goalsWithMembers = 
             from g in goals
             join m in members on g.Reporter.Number equals m.Id into reporters
@@ -61,8 +53,8 @@ public class GoalController : ControllerBase
                 g.Number,
                 g.Title,
                 g.Description,
-                r == null ? new Member() : new Member(r.Id, r.Name, r.Img),
-                a == null ? new Member() : new Member(a.Id, a.Name, a.Img),
+                r == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(r.Id, r.Name, r.Img),
+                a == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(a.Id, a.Name, a.Img),
                 g.DateOfCreate,
                 g.DateOfUpdate,
                 g.Label
@@ -75,6 +67,32 @@ public class GoalController : ControllerBase
     public async Task<GetGoalByIdResponseDto> Get(Guid id)
     {
         GoalModel goal = await _goalRepository.GetByIdAsync(id);
+        IEnumerable<Guid> reporterAndAssigneeIds = new List<Guid>() { goal.Reporter.Number, goal.Assignee.Number };
+        IEnumerable<MemberDto> reporterAndAssigneeDtos = new List<MemberDto>();
+        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
+        {
+            string jsonModel = JsonSerializer.Serialize(reporterAndAssigneeIds);
+            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync("/Member/GetByIds", stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                reporterAndAssigneeDtos = JsonSerializer.Deserialize<IEnumerable<MemberDto>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+            }
+        }
+        IEnumerable<Member> reporterAndAssignee = reporterAndAssigneeDtos.Select(x => new Member(x.Id, x.Name, x.Img));
+        goal = new GoalModel(
+            goal.Number,
+            goal.Title,
+            goal.Description,
+            reporterAndAssignee.FirstOrDefault(x => x.Number == goal.Reporter.Number) ?? goal.Reporter,
+            reporterAndAssignee.FirstOrDefault(x => x.Number == goal.Assignee.Number) ?? goal.Assignee,
+            goal.DateOfCreate,
+            goal.DateOfUpdate,
+            goal.Label);
         return new GetGoalByIdResponseDto
         {
             Goal = Convert(goal),

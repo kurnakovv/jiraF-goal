@@ -1,5 +1,6 @@
 ﻿using jiraF.Goal.API.Dtos.Goal.Add;
 using jiraF.Goal.API.Dtos.Goal.Update;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Secrets;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -15,12 +16,13 @@ using Xunit;
 
 namespace jiraF.Goal.EndToEndTests.Controllers
 {
-    public class GoalControllerTests
+    public class GoalControllerTests : IDisposable
     {
         private readonly HttpClient _client;
 
         public GoalControllerTests()
         {
+            TestVariables.IsWorkNow = true;
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
@@ -35,6 +37,12 @@ namespace jiraF.Goal.EndToEndTests.Controllers
 
             _client = application.CreateClient();
             _client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
+        }
+
+        public void Dispose()
+        {
+            TestVariables.IsWorkNow = false;
+            GC.SuppressFinalize(this);
         }
 
         [Theory]
@@ -56,13 +64,13 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             {
                 Title = "Test value",
                 Description = "Test value",
-                AssigneeId = System.Guid.Empty,
-                ReporterId = System.Guid.Empty,
+                AssigneeId = new Guid(DefaultMemberVariables.Id),
+                ReporterId = new Guid(DefaultMemberVariables.Id),
                 LabelTitle = "Test value" 
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PostAsync("/Goal", stringContent);
 
@@ -77,13 +85,13 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 Id = new System.Guid("a27723d9-fd4c-4b83-add8-f1c9152585ea"),
                 Title = "Test value",
                 Description = "Test value",
-                AssigneeId = System.Guid.Empty,
-                ReporterId = System.Guid.Empty,
+                AssigneeId = new Guid(DefaultMemberVariables.Id),
+                ReporterId = new Guid(DefaultMemberVariables.Id),
                 LabelTitle = "Test value"
             };
 
             string jsonModel = JsonSerializer.Serialize(requestDto);
-            var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
+            var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.PutAsync("/Goal", stringContent);
 
