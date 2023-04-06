@@ -9,15 +9,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using System;
+using jiraF.Goal.API.GlobalVariables;
 
 namespace jiraF.Goal.EndToEndTests.Attributes;
 
-public class ApiKeyAuthorizeAttributeTests
+public class ApiKeyAuthorizeAttributeTests : IDisposable
 {
     private readonly HttpClient _client;
 
     public ApiKeyAuthorizeAttributeTests()
     {
+        TestVariables.IsWorkNow = true;
         var application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
@@ -31,6 +33,12 @@ public class ApiKeyAuthorizeAttributeTests
             });
 
         _client = application.CreateClient();
+    }
+
+    public void Dispose()
+    {
+        TestVariables.IsWorkNow = false;
+        GC.SuppressFinalize(this);
     }
 
     [Fact]

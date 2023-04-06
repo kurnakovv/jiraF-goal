@@ -1,4 +1,5 @@
 using jiraF.Goal.API.Contracts;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
 using jiraF.Goal.API.Secrets;
@@ -11,14 +12,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 ApiKey.Value = builder.Configuration["GoalApiKey"] ?? Environment.GetEnvironmentVariable("GoalApiKey");
+DefaultMemberVariables.Id = builder.Configuration.GetValue<string>("DefaultMemberId");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-#if DEBUG // TODO: Delete this line, now if we do this, tests be broken.
-    options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+#if DEBUG
+    options.UseInMemoryDatabase(TestVariables.IsWorkNow
+        ? Guid.NewGuid().ToString()
+        : "TestData");
 #else
-    options.UseInMemoryDatabase("TestData");
-    //options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseNpgsql(builder.Configuration["ConnectionString"] ?? Environment.GetEnvironmentVariable("ConnectionString"));
 #endif
 });
 
