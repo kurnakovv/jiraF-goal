@@ -39,11 +39,11 @@ public class GoalController : ControllerBase
     public async Task<GetGoalsResponseDto> Get()
     {
         IEnumerable<GoalModel> goals = await _goalRepository.GetAsync();
-        List<Guid> memberIds = new(); 
+        List<Guid> memberIds = new();
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
         IEnumerable<MemberDto> members = await _memberApiClient.GetAsync(memberIds);
-        IEnumerable<GoalModel> goalsWithMembers = 
+        IEnumerable<GoalModel> goalsWithMembers =
             from g in goals
             join m in members on g.Reporter.Number equals m.Id into reporters
             join m in members on g.Assignee.Number equals m.Id into assignees
@@ -102,11 +102,19 @@ public class GoalController : ControllerBase
     [HttpPost]
     public async Task<AddGoalResponseDto> Add(AddGoalRequestDto requestDto)
     {
+        if (requestDto.ReporterId != null && !await _memberApiClient.IsExistsAsync(requestDto.ReporterId.Value))
+        {
+            throw new Exception($"Member by id: '{requestDto.ReporterId}' does not exists");
+        }
+        if (requestDto.AssigneeId != null && !await _memberApiClient.IsExistsAsync(requestDto.AssigneeId.Value))
+        {
+            throw new Exception($"Member by id: '{requestDto.AssigneeId}' does not exists");
+        }
         GoalModel goal = new(
             new Title(requestDto.Title),
             new Description(requestDto.Description),
-            requestDto.ReporterId,
-            requestDto.AssigneeId,
+            requestDto.ReporterId ?? Guid.Empty,
+            requestDto.AssigneeId ?? Guid.Empty,
             requestDto.LabelTitle);
 
         Guid goalNumber = await _goalRepository.AddAsync(goal);
