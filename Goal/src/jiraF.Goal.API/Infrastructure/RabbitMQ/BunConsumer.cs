@@ -11,18 +11,16 @@ public class BunConsumer : BackgroundService
 {
     private readonly IConnection _connection;
     private readonly IModel _channel;
-    private readonly IConfiguration _configuration;
     private readonly AppDbContext _appDbContext;
 
     public BunConsumer(
         IConfiguration configuration,
         AppDbContext appDbContext)
     {
-        _configuration = configuration;
         _appDbContext = appDbContext;
-        string userName = _configuration["RABBITMQ_DEFAULT_USER"] ?? Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER");
-        string password = _configuration["RABBITMQ_DEFAULT_PASS"] ?? Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS");
-        string hostName = _configuration.GetValue<string>("RabbitMQ:HostName");
+        string userName = configuration["RABBITMQ_DEFAULT_USER"] ?? Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_USER");
+        string password = configuration["RABBITMQ_DEFAULT_PASS"] ?? Environment.GetEnvironmentVariable("RABBITMQ_DEFAULT_PASS");
+        string hostName = configuration.GetValue<string>("RabbitMQ:HostName");
         int port = 5671;
         ConnectionFactory factory = new()
         {
