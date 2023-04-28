@@ -1,4 +1,5 @@
-﻿using jiraF.Goal.API.Infrastructure.Data.Contexts;
+﻿using jiraF.Goal.API.GlobalVariables;
+using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -49,8 +50,8 @@ public class BunConsumer : BackgroundService
                     x.ReporterId == memberId ||
                     x.AssigneeId == memberId)
                 .ToList();
-            goals.Where(x => x.ReporterId == memberId).ToList().ForEach(x => x.ReporterId = null);
-            goals.Where(x => x.AssigneeId == memberId).ToList().ForEach(x => x.AssigneeId = null);
+            goals.Where(x => x.ReporterId == memberId).ToList().ForEach(x => x.ReporterId = new Guid(DefaultMemberVariables.Id));
+            goals.Where(x => x.AssigneeId == memberId).ToList().ForEach(x => x.AssigneeId = new Guid(DefaultMemberVariables.Id));
             _channel.BasicAck(eventArguments.DeliveryTag, false);
         };
         _channel.BasicConsume("MemberQueue", false, consumer);
