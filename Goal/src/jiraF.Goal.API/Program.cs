@@ -2,6 +2,7 @@ using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
+using jiraF.Goal.API.Infrastructure.RabbitMQ;
 using jiraF.Goal.API.Secrets;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -63,6 +64,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddTransient<IGoalRepository, GoalRepository>();
 builder.Services.AddTransient<ILabelRepository, LabelRepository>();
+builder.Services.AddTransient<BunConsumer>();
 
 builder.Services.AddHealthChecks()
     .AddDbContextCheck<AppDbContext>();
