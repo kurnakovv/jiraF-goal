@@ -21,8 +21,6 @@ on:
       - '**.cs'
       - '**.yml'
     types: [opened, synchronize, reopened]
-  schedule:
-    - cron: '24 11 * * 2'
 
 jobs:
 
