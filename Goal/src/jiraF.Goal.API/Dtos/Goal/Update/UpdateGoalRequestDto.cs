@@ -11,4 +11,3 @@ public class UpdateGoalRequestDto
     public Guid AssigneeId { get; set; }
     public string LabelTitle { get; set; }
 }
- 
