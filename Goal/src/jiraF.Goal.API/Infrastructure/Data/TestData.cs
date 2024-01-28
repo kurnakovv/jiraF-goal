@@ -32,23 +32,16 @@ namespace jiraF.Goal.API.Infrastructure.Data
 
         public void Seed()
         {
-            try
+            if (!_dbContext.Goals.Any())
             {
-                if (!_dbContext.Goals.Any())
-                {
-                    _dbContext.Goals.AddRange(_goalEntities);
-                    _dbContext.SaveChanges();
-                }
-
-                if (!_dbContext.Labels.Any())
-                {
-                    _dbContext.Labels.AddRange(_labelEntities);
-                    _dbContext.SaveChanges();
-                }
+                _dbContext.Goals.AddRange(_goalEntities);
+                _dbContext.SaveChanges();
             }
-            catch (ArgumentException)
+
+            if (!_dbContext.Labels.Any())
             {
-                _dbContext.ChangeTracker.Clear();
+                _dbContext.Labels.AddRange(_labelEntities);
+                _dbContext.SaveChanges();
             }
         }
     }

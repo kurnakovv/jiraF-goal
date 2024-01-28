@@ -80,6 +80,20 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Update_CanUpdateValidModel_StatusCode200()
         {
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<AppDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                        });
+                    });
+                });
+
+            var client = application.CreateClient();
+            client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
             UpdateGoalRequestDto requestDto = new()
             {
                 Id = new System.Guid("a27723d9-fd4c-4b83-add8-f1c9152585ea"),
@@ -93,7 +107,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             string jsonModel = JsonSerializer.Serialize(requestDto);
             var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.PutAsync("/Goal", stringContent);
+            HttpResponseMessage response = await client.PutAsync("/Goal", stringContent);
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -101,7 +115,21 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Delete_CanDeleteGoalByValidId_StatusCode200()
         {
-            HttpResponseMessage response = await _client.DeleteAsync("/Goal?id=a27723d9-fd4c-4b83-add8-f1c9152585ea");
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<AppDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                        });
+                    });
+                });
+
+            var client = application.CreateClient();
+            client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
+            HttpResponseMessage response = await client.DeleteAsync("/Goal?id=a27723d9-fd4c-4b83-add8-f1c9152585ea");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

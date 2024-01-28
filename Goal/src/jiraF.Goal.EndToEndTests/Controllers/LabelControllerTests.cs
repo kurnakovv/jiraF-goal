@@ -78,6 +78,20 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Update_CanUpdateValidModel_StatusCode200()
         {
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<AppDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                        });
+                    });
+                });
+
+            var client = application.CreateClient();
+            client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
             UpdateLabelRequestDto requestDto = new()
             {
                 Label = new LabelDto
@@ -90,7 +104,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             string jsonModel = JsonSerializer.Serialize(requestDto);
             var stringContent = new StringContent(jsonModel, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.PutAsync("/Label", stringContent);
+            HttpResponseMessage response = await client.PutAsync("/Label", stringContent);
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -98,7 +112,21 @@ namespace jiraF.Goal.EndToEndTests.Controllers
         [Fact]
         public async Task Delete_CanDeleteModelByValidId_StatusCode200()
         {
-            HttpResponseMessage response = await _client.DeleteAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741");
+            var application = new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder =>
+                {
+                    builder.ConfigureServices(services =>
+                    {
+                        services.AddDbContext<AppDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                        });
+                    });
+                });
+
+            var client = application.CreateClient();
+            client.DefaultRequestHeaders.Add("GoalApiKey", ApiKey.Value);
+            HttpResponseMessage response = await client.DeleteAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
