@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace jiraF.Goal.API.Infrastructure.Data
 {
@@ -45,7 +46,10 @@ namespace jiraF.Goal.API.Infrastructure.Data
                     _dbContext.SaveChanges();
                 }
             }
-            catch(ArgumentException) { }
+            catch (ArgumentException)
+            {
+                _dbContext.ChangeTracker.Clear();
+            }
         }
     }
 }
