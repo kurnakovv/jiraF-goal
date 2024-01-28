@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace jiraF.Goal.API.Infrastructure.Data
 {
