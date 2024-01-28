@@ -34,6 +34,7 @@ namespace jiraF.Goal.API.Infrastructure.Data
                     _dbContext.Goals.Add(new GoalEntity() { Id = new Guid("a27723d9-fd4c-4b83-add8-f1c9152585ec"), AssigneeId = new Guid(DefaultMemberVariables.Id), ReporterId = new Guid(DefaultMemberVariables.Id), LabelId = _labelId, DateOfCreate = DateTime.UtcNow, Description = "Test desc3", Title = "Test title3" });
                 }
                 _dbContext.SaveChanges();
+                _dbContext.ChangeTracker.Clear();
             }
 
             if (!_dbContext.Labels.Any())
@@ -51,6 +52,7 @@ namespace jiraF.Goal.API.Infrastructure.Data
                     _dbContext.Labels.Add(new LabelEntity() { Id = new Guid("4674f93c-6331-4e63-b298-349619fa8743"), Title = "Test title3" });
                 }
                 _dbContext.SaveChanges();
+                _dbContext.ChangeTracker.Clear();
             }
         }
     }
