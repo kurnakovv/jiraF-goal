@@ -19,6 +19,7 @@ namespace jiraF.Goal.API.Infrastructure.Data
 
         public void Seed()
         {
+            _dbContext.ChangeTracker.Clear();
             if (!_dbContext.Goals.Any())
             {
                 if (!_dbContext.Goals.Any(x => x.Id == new Guid("a27723d9-fd4c-4b83-add8-f1c9152585ea")))
@@ -54,6 +55,7 @@ namespace jiraF.Goal.API.Infrastructure.Data
                 _dbContext.SaveChanges();
                 _dbContext.ChangeTracker.Clear();
             }
+            _dbContext.ChangeTracker.Clear();
         }
     }
 }
