@@ -18,10 +18,10 @@ public class GoalEntity
     public string Description { get; set; }
 
     [Column("g_reporter_id")]
-    public Guid? ReporterId { get; set; }
+    public Guid ReporterId { get; set; }
 
     [Column("g_assignee_id")]
-    public Guid? AssigneeId { get; set; }
+    public Guid AssigneeId { get; set; }
 
     [Column("g_date_of_create")]
     public DateTime DateOfCreate { get; set; }

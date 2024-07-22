@@ -1,6 +1,7 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
 using jiraF.Goal.API.Domain.Dtos;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.ValueObjects;
@@ -25,8 +26,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new Member(x.ReporterId ?? Guid.Empty),
-                new Member(x.AssigneeId ?? Guid.Empty),
+                new Member(x.ReporterId),
+                new Member(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(
@@ -46,8 +47,8 @@ public class GoalRepository : IGoalRepository
                 x.Id,
                 new Title(x.Title),
                 new Description(x.Description),
-                new Member(),
-                new Member(),
+                new Member(x.ReporterId),
+                new Member(x.AssigneeId),
                 x.DateOfCreate,
                 x.DateOfUpdate,
                 new LabelModel(

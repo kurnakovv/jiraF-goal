@@ -1,5 +1,6 @@
 ﻿using jiraF.Goal.API.Contracts;
 using jiraF.Goal.API.Domain;
+using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.Data.Contexts;
 using jiraF.Goal.API.Infrastructure.Data.Entities;
 using jiraF.Goal.API.Infrastructure.Data.Repositories;
@@ -22,6 +23,8 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
 
         public LabelRepositoryTests()
         {
+            TestVariables.IsWorkNow = true;
+            DefaultMemberVariables.Id = "94ff67f3-294b-43f1-88ce-b815e80ff278";
             var options = new DbContextOptionsBuilder<AppDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
@@ -41,6 +44,7 @@ namespace jiraF.Goal.IntegrationTests.Infrastructure.Data.Repositories
             _dbContext.Database.EnsureDeleted();
             await _dbContext.DisposeAsync();
             GC.SuppressFinalize(this);
+            TestVariables.IsWorkNow = false;
         }
 
         [Fact]
