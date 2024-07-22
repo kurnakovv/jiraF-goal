@@ -23,23 +23,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-
-  filter-folder:
-    runs-on: ubuntu-latest
-    outputs:
-      is_folder_changed: ${{ steps.changes.outputs.goal }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Paths Changes Filter
-        uses: dorny/paths-filter@v2.10.2
-        id: changes
-        with:
-          filters: |
-            goal:
-              - 'Goal/**'
   analyze:
-    needs: [filter-folder]
-    if: needs.filter-folder.outputs.is_folder_changed == 'true'
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
