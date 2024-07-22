@@ -13,6 +13,7 @@ using jiraF.Goal.API.GlobalVariables;
 using jiraF.Goal.API.Infrastructure.ApiClients;
 using jiraF.Goal.API.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
 
@@ -25,6 +26,7 @@ public class GoalController : ControllerBase
 {
     private readonly IGoalRepository _goalRepository;
     private readonly MemberApiClient _memberApiClient;
+    private readonly IConfiguration _configuration;
 
     public GoalController(
         IGoalRepository goalRepository,
@@ -32,6 +34,7 @@ public class GoalController : ControllerBase
         IConfiguration configuration)
     {
         _goalRepository = goalRepository;
+        _configuration = configuration;
         _memberApiClient = new MemberApiClient(httpClientFactory.CreateClient(configuration.GetValue<string>("ApiClients:MemberApiClient")));
     }
 
@@ -55,11 +58,11 @@ public class GoalController : ControllerBase
         GoalModel goal = await _goalRepository.GetByIdAsync(id);
         IEnumerable<Guid> reporterAndAssigneeIds = new List<Guid>() { goal.Reporter.Number, goal.Assignee.Number };
         IEnumerable<MemberDto> reporterAndAssigneeDtos = new List<MemberDto>();
-        using (HttpClient client = new() { BaseAddress = new Uri("https://jiraf-member.onrender.com") })
+        using (HttpClient client = new() { BaseAddress = new Uri(_configuration.GetValue<string>("ApiClients:MemberURL")) })
         {
             string jsonModel = JsonSerializer.Serialize(reporterAndAssigneeIds);
             var stringContent = new StringContent(jsonModel, UnicodeEncoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("/Member/GetByIds", stringContent);
+            HttpResponseMessage response = await client.PostAsync("Member/GetByIds", stringContent);
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();

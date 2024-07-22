@@ -71,7 +71,7 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddHttpClient(builder.Configuration.GetValue<string>("ApiClients:MemberApiClient"), client =>
 {
-    client.BaseAddress = new Uri("https://jiraf-member.onrender.com/");
+    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiClients:MemberURL"));
 });
 
 var app = builder.Build();
