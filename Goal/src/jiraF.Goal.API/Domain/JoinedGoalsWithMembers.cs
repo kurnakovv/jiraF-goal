@@ -26,8 +26,8 @@ namespace jiraF.Goal.API.Domain
                         g.Number,
                         g.Title,
                         g.Description,
-                        r == null ? new Member() : new Member(r.Number, r.Name, r.Img),
-                        a == null ? new Member() : new Member(a.Number, a.Name, a.Img),
+                        r == null ? new Member(Guid.Empty) : new Member(r.Number, r.Name, r.Img),
+                        a == null ? new Member(Guid.Empty) : new Member(a.Number, a.Name, a.Img),
                         g.DateOfCreate,
                         g.DateOfUpdate,
                         g.Label
