@@ -43,23 +43,9 @@ public class GoalController : ControllerBase
         memberIds.AddRange(goals.Select(x => x.Reporter.Number));
         memberIds.AddRange(goals.Select(x => x.Assignee.Number));
         IEnumerable<MemberDto> members = await _memberApiClient.GetAsync(memberIds);
-        IEnumerable<GoalModel> goalsWithMembers =
-            from g in goals
-            join m in members on g.Reporter.Number equals m.Id into reporters
-            join m in members on g.Assignee.Number equals m.Id into assignees
-            from r in reporters.DefaultIfEmpty()
-            from a in assignees.DefaultIfEmpty()
-            select new GoalModel(
-                g.Number,
-                g.Title,
-                g.Description,
-                r == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(r.Id, r.Name, r.Img),
-                a == null ? new Member(new Guid(DefaultMemberVariables.Id)) : new Member(a.Id, a.Name, a.Img),
-                g.DateOfCreate,
-                g.DateOfUpdate,
-                g.Label
-                );
-        IEnumerable<GoalDto> dtos = goalsWithMembers.Select(x => Convert(x));
+        JoinedGoalsWithMembers joinedGoalsWithMembers = new(goals, members.Select(x => new Member(x.Id, x.Name, x.Img)));
+        joinedGoalsWithMembers.Join(); 
+        IEnumerable<GoalDto> dtos = joinedGoalsWithMembers.Goals.Select(x => Convert(x));
         return new GetGoalsResponseDto() { Goals = dtos };
     }
 
