@@ -4,8 +4,8 @@ create table goal(
 	id_goal uuid primary key,
 	g_title varchar(50) not null,
 	g_description varchar(500) not null,
-	g_reporter_id uuid,
-	g_assignee_id uuid,
+	g_reporter_id uuid not null,
+	g_assignee_id uuid not null,
 	g_date_of_create timestamp not null,
 	g_date_of_update timestamp,
 	g_label_id uuid
