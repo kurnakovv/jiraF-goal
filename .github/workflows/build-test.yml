@@ -1,4 +1,4 @@
-name: Goal microservice Build/Test
+name: Build/Test
 
 on:
   push:
