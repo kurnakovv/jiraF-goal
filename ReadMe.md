@@ -1,5 +1,11 @@
-[![Main repo](https://img.shields.io/static/v1?label=&message=MainRepo&color=orange)](https://github.com/KurnakovMaksim/jiraF/) 
+[![Main repo](https://img.shields.io/static/v1?label=&message=MainRepo&color=orange)](https://github.com/KurnakovMaksim/jiraF/)
 [![Hits-of-Code](https://hitsofcode.com/github/KurnakovMaksim/jiraF-goal?branch=main)](https://hitsofcode.com/github/KurnakovMaksim/jiraF-goal/view?branch=main)
+[![Render](https://img.shields.io/static/v1?label=&message=Render&color=grey&logo=render)](https://jiraf-goal.onrender.com/ping)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=KurnakovMaksim_jiraF&metric=coverage)](https://sonarcloud.io/summary/new_code?id=KurnakovMaksim_jiraF)
+[![CodeQL](https://github.com/KurnakovMaksim/jiraF-goal/workflows/CodeQL/badge.svg)](https://github.com/KurnakovMaksim/jiraF-goal/actions?query=workflow%3ACodeQL)
+[![Codecov](https://codecov.io/gh/KurnakovMaksim/jiraF/branch/main/graph/badge.svg)](https://codecov.io/gh/KurnakovMaksim/jiraF)
+
 # Goal
 Microservice with goals logic.
 
