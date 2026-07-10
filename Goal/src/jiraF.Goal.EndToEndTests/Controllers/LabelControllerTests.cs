@@ -48,7 +48,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             GC.SuppressFinalize(this);
         }
 
-        [Theory(Skip = "Does not work for GitHub actions")]
+        [Theory]
         [InlineData("/Label")]
         [InlineData("/Label/4674f93c-6331-4e63-b298-349619fa8741")]
         public async Task CheckAllGETApiMethodsIsValid_StatusCode200(string url)
@@ -60,7 +60,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
                 response?.Content?.Headers?.ContentType?.ToString());
         }
 
-        [Fact(Skip = "Does not work for GitHub actions")]
+        [Fact]
         public async Task Add_CanAddValidModel_StatusCode200()
         {
             AddLabelRequestDto requestDto = new()
@@ -75,7 +75,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact(Skip = "Does not work for GitHub actions")]
+        [Fact]
         public async Task Update_CanUpdateValidModel_StatusCode200()
         {
             UpdateLabelRequestDto requestDto = new()
@@ -95,7 +95,7 @@ namespace jiraF.Goal.EndToEndTests.Controllers
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact(Skip = "Does not work for GitHub actions")]
+        [Fact]
         public async Task Delete_CanDeleteModelByValidId_StatusCode200()
         {
             HttpResponseMessage response = await _client.DeleteAsync("/Label?id=4674f93c-6331-4e63-b298-349619fa8741");
